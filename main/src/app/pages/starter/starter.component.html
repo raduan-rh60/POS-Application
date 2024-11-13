@@ -1,4 +1,89 @@
 <div class="row">
+  <div class="col-lg-3 col-md-6 ">
+    <mat-card class="cardWithShadow bg-light-primary">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-success" data-icon="solar:box-line-duotone"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Sold</mat-card-title>
+        </div>
+    
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+          </div>
+        
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
+  <div class="col-lg-3 col-md-6 ">
+    <mat-card class="cardWithShadow bg-light-warning">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-error" data-icon="solar:wad-of-money-broken"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Expenses</mat-card-title>
+        </div>
+    
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+          </div>
+        
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
+  <div class="col-lg-3 col-md-6 ">
+    <mat-card class="cardWithShadow bg-light-error">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-dark" data-icon="solar:archive-down-broken"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total return</mat-card-title>
+        </div>
+    
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+          </div>
+        
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
+  <div class="col-lg-3 col-md-6 ">
+    <mat-card class="cardWithShadow bg-light-accent">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-primary" data-icon="solar:wallet-money-line-duotone"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Profit</mat-card-title>
+        </div>
+    
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+          </div>
+        
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>
+  
   <div class="col-lg-8">
     <app-revenue-forecast></app-revenue-forecast>
   </div>
@@ -16,9 +101,33 @@
     <app-revenue-product></app-revenue-product>
   </div>
   <div class="col-lg-4">
-    <app-daily-activities></app-daily-activities>
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-48 bg-light-primary d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-24 text-dark" data-icon="solar:shop-outline"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Sale By shop</mat-card-title>
+        </div>
+    
+        <table>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <mat-text-column name="position" [headerText]="headerText"></mat-text-column>
+          
+            <!-- Change the header text. -->
+            <mat-text-column name="name" headerText="Element"></mat-text-column>
+          
+            <!-- Justify the content of the cells to the cell end. -->
+            <mat-text-column name="symbol" justify="end"></mat-text-column>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </table>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <div class="col-12">
-    <app-blog-card></app-blog-card>
-  </div>
+
 </div>
