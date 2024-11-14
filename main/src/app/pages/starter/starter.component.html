@@ -112,20 +112,7 @@
           <mat-card-title class="f-s-16 f-w-500 m-b-0">Sale By shop</mat-card-title>
         </div>
     
-        <table>
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <mat-text-column name="position" [headerText]="headerText"></mat-text-column>
-          
-            <!-- Change the header text. -->
-            <mat-text-column name="name" headerText="Element"></mat-text-column>
-          
-            <!-- Justify the content of the cells to the cell end. -->
-            <mat-text-column name="symbol" justify="end"></mat-text-column>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </table>
+       
       </mat-card-content>
     </mat-card>
   </div>
