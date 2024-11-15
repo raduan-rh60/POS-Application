@@ -11,13 +11,13 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Users',
-    iconName: 'solar:widget-add-line-duotone',
-    route: '/dashboard',
+    iconName: 'solar:users-group-rounded-outline',
+    route: '/users',
   },
   {
     displayName: 'Profile',
-    iconName: 'solar:widget-add-line-duotone',
-    route: '/dashboard',
+    iconName: 'solar:settings-outline',
+    route: '/profile',
   },
   {
     navCap: 'Sales And Purches',
@@ -26,12 +26,12 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Sale Product',
     iconName: 'solar:archive-minimalistic-line-duotone',
-    route: '/ui-components/badge',
+    route: '/sales/pos',
   },
   {
     displayName: 'Sales',
     iconName: 'solar:danger-circle-line-duotone',
-    route: '/ui-components/chips',
+    route: '/sales/all-sales',
   },
   {
     displayName: 'Returns',

@@ -8,14 +8,20 @@ import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
+import { GenerateSaleComponent } from './generate-sale/generate-sale.component';
+import { AllSalesComponent } from './all-sales/all-sales.component';
 
-export const UiComponentsRoutes: Routes = [
+export const ProductComponent: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'badge',
-        component: AppBadgeComponent,
+        path: 'all-sales',
+        component: AllSalesComponent,
+      },
+      {
+        path: 'pos',
+        component: GenerateSaleComponent,
       },
       {
         path: 'chips',

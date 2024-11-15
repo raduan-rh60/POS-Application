@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
+import { UsersComponent } from './pages/company/users/users.component';
+import { ProfileComponent } from './pages/company/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -18,12 +20,14 @@ export const routes: Routes = [
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
-        path: 'ui-components',
+        path: 'sales',
         loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
+          import('./pages/product-sales/product-component.routes').then(
+            (m) => m.ProductComponent
           ),
       },
+      {path:'users', component:UsersComponent},
+      {path:'profile', component:ProfileComponent},
       {
         path: 'extra',
         loadChildren: () =>
