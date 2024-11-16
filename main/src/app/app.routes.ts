@@ -3,6 +3,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { UsersComponent } from './pages/company/users/users.component';
 import { ProfileComponent } from './pages/company/profile/profile.component';
+import { AuthGuard } from 'src/authentication/auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
+        canActivate: [AuthGuard],
       },
       {
         path: 'sales',
@@ -25,14 +27,17 @@ export const routes: Routes = [
           import('./pages/product-sales/product-component.routes').then(
             (m) => m.ProductComponent
           ),
+          canActivate: [AuthGuard],
       },
-      {path:'users', component:UsersComponent},
-      {path:'profile', component:ProfileComponent},
+      {path:'users', component:UsersComponent, canActivate: [AuthGuard],},
+      {path:'profile', component:ProfileComponent, canActivate: [AuthGuard],},
       {
         path: 'extra',
         loadChildren: () =>
           import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
+        canActivate: [AuthGuard],
       },
+      
     ],
   },
   {
