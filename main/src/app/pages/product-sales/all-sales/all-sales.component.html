@@ -1,4 +1,4 @@
-<mat-card class="hstack">
+<mat-card class="cardWithShadow">
     <mat-card-content>
       
       <div class="row justify-content-end mb-5">
@@ -6,7 +6,7 @@
             <mat-card-title>Product Sale List </mat-card-title>
         </div>
         <div class="col-md-6 text-end">
-            <button mat-flat-button color="primary"> Export CSV </button>
+            <button mat-flat-button color="primary" (click)="printpdf()"> Export CSV </button>
         </div>
         
       </div>

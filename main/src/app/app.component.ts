@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'Raduan Point Of Sale Project';
+  title = 'Guru Point Of Sale Project';
 }

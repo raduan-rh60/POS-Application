@@ -88,4 +88,7 @@ export class AllSalesComponent {
   dataSource = ELEMENT_DATA;
 
   constructor() {}
+  printpdf(){
+    window.print();
+  }
 }
