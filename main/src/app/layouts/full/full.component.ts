@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
-import { navItems } from './sidebar/sidebar-data';
+import { admin, employee } from './sidebar/sidebar-data';
 import { NavService } from '../../services/nav.service';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { RouterModule } from '@angular/router';
@@ -40,7 +40,8 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
 
 export class FullComponent implements OnInit {
 
-  navItems = navItems;
+  navItems = admin;
+  navitems2 = employee;
 
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav | any;

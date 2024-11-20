@@ -12,226 +12,54 @@
       </div>
   
       <div class="table-responsive">
-        <table mat-table [dataSource]="dataSource" class="w-100">
-          <!-- product image Column -->
-          <ng-container matColumnDef="product">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14 p-l-0"
-            >
-              Product
-            </th>
-            <td mat-cell *matCellDef="let product" class="p-l-0">
-              <div class="d-flex align-items-center">
-                <img
-                  [src]="product.imagePath"
-                  alt="users"
-                  width="48"
-                  class="rounded"
-                />
-               
-              </div>
-            </td>
-          </ng-container>
-  
-          <!-- Product ID Column -->
-          <ng-container matColumnDef="productId">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-              Product ID
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.productId }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- product Name Column -->
-          <ng-container matColumnDef="productName">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-              Product Name
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.pName }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Sale Quantity -->
-          <ng-container matColumnDef="saleQuantity">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-                Sale Quantity
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.sQuantity }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-  
-          <!-- Product Price  -->
-          <ng-container matColumnDef="productPrice">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-               Product Price
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.pPrice }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Paid Price -->
-          <ng-container matColumnDef="paidPrice">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-                Paid Price
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.paidPrice }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Due Price -->
-          <ng-container matColumnDef="duePrice">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-              Due Amount
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.duePrice }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Customer Name -->
-          <ng-container matColumnDef="customerName">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-            Customer Name
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.customerName }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Sale Time -->
-          <ng-container matColumnDef="saleTime">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-              Sale Time
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.saleTime }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Sale Date -->
-          <ng-container matColumnDef="saleDate">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-             Sale Date
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.saleDate }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-  
-          <!-- Shop referance -->
-          <ng-container matColumnDef="shopeReferance">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-              Shop Referance
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14">{{ product.shopeReferance }}</span
-                ></span
-              >
-            </td>
-          </ng-container>
-
-          <!-- Action Column -->
-          <ng-container matColumnDef="action">
-            <th
-              mat-header-cell
-              *matHeaderCellDef
-              class="f-w-400 mat-subtitle-1 f-s-14"
-            >
-              Action
-            </th>
-            <td mat-cell *matCellDef="let product" class="mat-body-1">
-              <span
-                ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                  <button mat-icon-button color="warn">
-                    <i class="bi bi-trash"></i>
-                  </button></span
-                ></span
-              >
-            </td>
-          </ng-container>
-  
-  
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+        <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '70rem' }">
+          <ng-template pTemplate="header">
+              <tr>
+                @for (item of displayedColumns; track $index) {
+                  <th pSortableColumn="{{item}}" >
+                      {{item}} <p-sortIcon field="{{item}}" />
+                  </th>
+                }
+                  
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-dataSource>
+              <tr>
+                  <td>
+                    <img
+                [src]= dataSource.imagePath 
+                alt="users"
+                width="48"
+                class="rounded"
+              /></td>
+                  <td>{{ dataSource.productId }}</td>
+                  <td>{{ dataSource.pName }}</td>
+                  <td>{{ dataSource.sQuantity }}</td>
+                  <td>{{ dataSource.productPrice | currency : 'EUR'  }}</td>
+                  <td>{{ dataSource.paidPrice }}</td>
+                  <td>{{ dataSource.duePrice }}</td>
+                  <td>{{ dataSource.customerName }}</td>
+                  <td>{{ dataSource.saleDate }}</td>
+                  <td>{{ dataSource.saleTime }}</td>
+                  <td>{{ dataSource.shopeReferance }}</td>
+                  <td><span
+                    ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                      <button mat-icon-button color="warn">
+                        <i class="bi bi-trash"></i>
+                      </button></span
+                    ></span
+                  ></td>
+              </tr>
+          </ng-template>
+        </p-table>
       </div>
     </mat-card-content>
   </mat-card>
+  
+  
+
+
+
   
