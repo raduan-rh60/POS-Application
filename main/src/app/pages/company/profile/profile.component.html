@@ -1,176 +1,291 @@
 <div class="row">
-    <!-- Company Information Tab -->
-    <div class="col-12">
-        <mat-card class="cardWithShadow">
-            <mat-card-content>
-              <div class="hstack align-items-center">
-                <mat-card-title class="f-s-16 f-w-500 m-b-0"
-                  >Company Details</mat-card-title
-                >
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-md-4">
-                    <img
-                src="{{companyData.compnayLogo}}"
-                alt="users"
-                width="200"
-              /> <br>
-              <div class="mt-5">
-                <button mat-stroked-button>Update Logo</button>
-              </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="text-end">
-                        <button mat-raised-button color="accent">Edit Info</button>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <strong> Company Name</strong>
-                        </div>
-                        <div class="col-8">{{companyData.companyName}}</div>
-                        <div class="col-4">
-                            <strong> Company Address</strong>
-                        </div>
-                        <div class="col-8">{{companyData.companyAddress}}</div>
-                   
-                    </div>
-                </div>
-              </div>
-      
-            
-            </mat-card-content>
-          </mat-card>
-    </div>
-        <!-- Owner Information Tab -->
-    <div class="col-12">
-        <mat-card class="cardWithShadow">
-            <mat-card-content>
-              <div class="hstack align-items-center">
-                <mat-card-title class="f-s-16 f-w-500 m-b-0"
-                  >Owner Details</mat-card-title
-                >
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-md-4">
-                    <img
-                src="{{userLogo}}"
-                alt="users"
-                width="200"
-              /> <br>
-              <div class="mt-5">
-                <button mat-stroked-button>Update Image</button>
-              </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="text-end">
-                        <button mat-raised-button color="accent">Edit Info</button>
-                    </div>
-                    <div class="row">
-                        <div class="col-3">
-                            <strong> Owner Name:</strong>
-                        </div>
-                        <div class="col-9">{{companyData.companyName}}</div>
-                        <div class="col-3">
-                            <strong> Owner email:</strong>
-                        </div>
-                        <div class="col-9">{{"abc@gmail.com"}}</div>
-                        <div class="col-3">
-                            <strong> Owner Phone:</strong>
-                        </div>
-                        <div class="col-9">01254678</div>
-                   
-                    </div>
-                </div>
-              </div>
-      
-            
-            </mat-card-content>
-          </mat-card>
-    </div>
-            <!-- Shop Information Tab -->
-    <div class="col-12">
-        <mat-card class="cardWithShadow">
-            <mat-card-content>
-              <div class="row">
-                <div class="col-md-6">
-                  <mat-card-title class="f-s-16 f-w-500 m-b-0"
-                    >Shop Information</mat-card-title
-                  >
-                </div>
-                <div class="col-md-6 text-end">
-                  <button mat-raised-button class="bg-primary text-white">
-                    Add Shop
-                  </button>
-                </div>
+  <!--   Password change tab-->
+  <div class="col-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Change Password
+          </mat-card-title
+          >
+        </div>
+        <hr>
+        <div class="row">
+          <form>
+            <div class="row">
+              <div class="col-lg-6">
+                <!-- input -->
+                <mat-label class="f-w-600 m-b-8 d-block">Current password</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput placeholder="Current password"/>
+                </mat-form-field>
               </div>
 
-       
-              <div class="row">
-                <div class="col-12">
-                  <div class="table-responsive">
-                    <table mat-table [dataSource]="info" class="mat-elevation-z8">
-                      <!-- Shop ID Column -->
-                      <ng-container matColumnDef="id">
-                        <th mat-header-cell *matHeaderCellDef>Shop ID</th>
-                        <td mat-cell *matCellDef="let shop">{{ shop.id }}</td>
-                      </ng-container>
-        
-                      <!-- Shop Location Column -->
-                      <ng-container matColumnDef="shopLocation">
-                        <th mat-header-cell *matHeaderCellDef>Shop Location</th>
-                        <td mat-cell *matCellDef="let shop">{{ shop.location }}</td>
-                      </ng-container>
-        
-                      <!-- Shop Manager Column -->
-                      <ng-container matColumnDef="shopManager">
-                        <th mat-header-cell *matHeaderCellDef>shop Manager</th>
-                        <td mat-cell *matCellDef="let shop">{{ shop.manager }}</td>
-                      </ng-container>
-        
-                      <!-- Shop Manager Email Column -->
-                      <ng-container matColumnDef="shopManagerEmail">
-                        <th mat-header-cell *matHeaderCellDef>Shop Manager Email</th>
-                        <td mat-cell *matCellDef="let shop">
-                          {{ shop.managerEmail }}
-                        </td>
-                      </ng-container>
-
-                      <!-- Shop Manager Phone Column -->
-                      <ng-container matColumnDef="shopManagerPhone">
-                        <th mat-header-cell *matHeaderCellDef>Shop Manager Phone</th>
-                        <td mat-cell *matCellDef="let shop">
-                          {{ shop.managerPhone }}
-                        </td>
-                      </ng-container>
-        
-                      <!-- Action Column -->
-                      <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef class="text-end">Action</th>
-                        <td mat-cell *matCellDef="let shop">
-                          <div class="row">
-                            
-                            <div class="col-12 justify-content-end text-end">
-                              <button mat-icon-button color="primary">
-                                <i class="bi bi-pencil-square"></i>
-                              </button>
-                              <button mat-icon-button color="warn">
-                                <i class="bi bi-trash"></i>
-                              </button>
-                             
-                            </div>
-                          </div>
-                        </td>
-                      </ng-container>
-        
-                      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
-                    </table>
-                  </div>
-                </div>
+              <div class="col-lg-6">
+                <!-- input -->
+                <mat-label class="f-w-600 m-b-8 d-block">New password</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput placeholder="New Password"/>
+                </mat-form-field>
               </div>
-            </mat-card-content>
-          </mat-card>
-    </div>
+
+              <div class="col-lg-6">
+                <!-- input -->
+                <mat-label class="f-w-600 m-b-8 d-block">Confirm password</mat-label>
+                <mat-form-field appearance="outline" class="w-100" color="primary">
+                  <input matInput placeholder="Confirm New Password"/>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="m-t-12">
+              <button mat-flat-button color="primary" class="m-r-8">Submit</button>
+            </div>
+          </form>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Company Information Tab -->
+  <div class="col-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Company Details
+          </mat-card-title
+          >
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-4">
+            <img
+              src="{{companyData.compnayLogo}}"
+              alt="users"
+              width="200"
+            /> <br>
+            <div class="mt-5">
+              <button mat-stroked-button>Update Logo</button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="text-end">
+              <button mat-raised-button color="accent">Edit Info</button>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <strong> Company Name</strong>
+              </div>
+              <div class="col-8">{{ companyData.companyName }}</div>
+              <div class="col-4">
+                <strong> Company Address</strong>
+              </div>
+              <div class="col-8">{{ companyData.companyAddress }}</div>
+
+            </div>
+          </div>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- Owner Information Tab -->
+  <div class="col-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Owner Details
+          </mat-card-title
+          >
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-4">
+            <img
+              src="{{userLogo}}"
+              alt="users"
+              width="200"
+            /> <br>
+            <div class="mt-5">
+              <button mat-stroked-button>Update Image</button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="text-end">
+              <!-- Button trigger modal -->
+              <button mat-raised-button color="accent" (click)="showDialog()">
+                Edit Info
+              </button>
+
+
+            </div>
+            <div class="row">
+              <div class="col-3">
+                <strong> Owner Name:</strong>
+              </div>
+              <div class="col-9">{{ companyData.companyName }}</div>
+              <div class="col-3">
+                <strong> Owner email:</strong>
+              </div>
+              <div class="col-9">{{ "abc@gmail.com" }}</div>
+              <div class="col-3">
+                <strong> Owner Phone:</strong>
+              </div>
+              <div class="col-9">01254678</div>
+
+            </div>
+          </div>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- Shop Information Tab -->
+  <div class="col-12">
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-card-title class="f-s-16 f-w-500 m-b-0"
+            >Shop Information
+            </mat-card-title
+            >
+          </div>
+          <div class="col-md-6 text-end">
+            <button mat-raised-button class="bg-primary text-white">
+              Add Shop
+            </button>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table mat-table [dataSource]="info" class="mat-elevation-z8">
+                <!-- Shop ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>Shop ID</th>
+                  <td mat-cell *matCellDef="let shop">{{ shop.id }}</td>
+                </ng-container>
+
+                <!-- Shop Location Column -->
+                <ng-container matColumnDef="shopLocation">
+                  <th mat-header-cell *matHeaderCellDef>Shop Location</th>
+                  <td mat-cell *matCellDef="let shop">{{ shop.location }}</td>
+                </ng-container>
+
+                <!-- Shop Manager Column -->
+                <ng-container matColumnDef="shopManager">
+                  <th mat-header-cell *matHeaderCellDef>shop Manager</th>
+                  <td mat-cell *matCellDef="let shop">{{ shop.manager }}</td>
+                </ng-container>
+
+                <!-- Shop Manager Email Column -->
+                <ng-container matColumnDef="shopManagerEmail">
+                  <th mat-header-cell *matHeaderCellDef>Shop Manager Email</th>
+                  <td mat-cell *matCellDef="let shop">
+                    {{ shop.managerEmail }}
+                  </td>
+                </ng-container>
+
+                <!-- Shop Manager Phone Column -->
+                <ng-container matColumnDef="shopManagerPhone">
+                  <th mat-header-cell *matHeaderCellDef>Shop Manager Phone</th>
+                  <td mat-cell *matCellDef="let shop">
+                    {{ shop.managerPhone }}
+                  </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef class="text-end">Action</th>
+                  <td mat-cell *matCellDef="let shop">
+                    <div class="row">
+
+                      <div class="col-12 justify-content-end text-end">
+                        <button mat-icon-button color="primary">
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button mat-icon-button color="warn">
+                          <i class="bi bi-trash"></i>
+                        </button>
+
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
 </div>
+
+<!-- Modal for profile -->
+<!--<p-button (onClick)="showDialog()" label="Show" />-->
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+  <mat-card class="cardWithShadow">
+    <mat-card-content>
+      <div class="hstack align-items-center">
+        <mat-card-title class="f-s-16 f-w-500 m-b-0"
+        >Change Password
+        </mat-card-title
+        >
+      </div>
+      <hr>
+      <div class="row">
+        <form>
+          <div class="row">
+            <div class="col-lg-6">
+              <!-- input -->
+              <mat-label class="f-w-600 m-b-8 d-block">Current password</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput placeholder="Current password"/>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6">
+              <!-- input -->
+              <mat-label class="f-w-600 m-b-8 d-block">New password</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput placeholder="New Password"/>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6">
+              <!-- input -->
+              <mat-label class="f-w-600 m-b-8 d-block">Confirm password</mat-label>
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <input matInput placeholder="Confirm New Password"/>
+              </mat-form-field>
+            </div>
+
+          </div>
+
+          <div class="m-t-12">
+            <button mat-flat-button color="primary" class="m-r-8" (click)="visible=false">Submit</button>
+          </div>
+        </form>
+      </div>
+
+
+    </mat-card-content>
+  </mat-card>
+
+</p-dialog>
+
+
