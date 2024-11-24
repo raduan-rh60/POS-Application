@@ -1,5 +1,8 @@
 package com.project.PointOfSale.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.project.PointOfSale.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +23,20 @@ public class User {
     private String email;
     private String address;
     private String phone;
-    private String role;
+
+    @Enumerated
+    private Role role;
 
 
-//    private String shop_id;
+
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    @JsonIgnoreProperties("users")
+    private Shop shop;
+
+    @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Shop shop1;
 
 }
+
