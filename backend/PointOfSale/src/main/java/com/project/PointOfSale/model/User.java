@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,19 +26,26 @@ public class User {
     private String address;
     private String phone;
 
-    @Enumerated
+//    Enum for role
+    @Enumerated(EnumType.STRING)
     private Role role;
 
-
-
+//    self joining for manager_id
     @ManyToOne
+    @JoinColumn(name = "manager_id")
+    @JsonIgnore
+    private User manager;
+
+    @OneToMany(mappedBy = "manager")
+    @JsonIgnore
+    private List<User> subordinates;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
-    @JsonIgnoreProperties("users")
     private Shop shop;
 
-    @OneToOne(mappedBy = "manager", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Shop shop1;
+
 
 }
 

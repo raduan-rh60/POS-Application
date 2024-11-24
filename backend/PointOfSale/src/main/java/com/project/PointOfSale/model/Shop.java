@@ -24,13 +24,9 @@ public class Shop {
     private String location;
 
 
-    @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("shop")
-    private List<User> users;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "manager_id")
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "manager_id", nullable = false) // Ensures a shop must have a manager
+    @JsonIgnoreProperties("shops") // Prevents infinite recursion
     private User manager;
 
 
