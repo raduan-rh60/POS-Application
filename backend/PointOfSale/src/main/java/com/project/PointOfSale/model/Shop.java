@@ -1,8 +1,6 @@
 package com.project.PointOfSale.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.project.PointOfSale.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,16 +17,28 @@ public class Shop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String name;
     private String location;
 
+//  User bi-direction
+    @OneToMany(mappedBy = "shop")
+    @JsonIgnoreProperties("shop") // Prevents infinite recursion
+    private List<User> users;
 
-    @ManyToOne
-    @JoinColumn(name = "manager_id", nullable = false) // Ensures a shop must have a manager
-    @JsonIgnoreProperties("shops") // Prevents infinite recursion
-    private User manager;
+//  Bi-direction for employee and manager
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "manager_id",nullable = false)
+    @JsonIgnoreProperties(value = "shop")
+    private Employee shopManager;
 
-
+//  uni-direction for products and shop
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "product_shop",
+            joinColumns = @JoinColumn(name = "shop_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
 
 }

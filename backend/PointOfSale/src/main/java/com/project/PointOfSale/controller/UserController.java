@@ -1,38 +1,30 @@
 package com.project.PointOfSale.controller;
 
-import com.project.PointOfSale.model.Shop;
+import com.project.PointOfSale.MapperDTO.LoginDto;
 import com.project.PointOfSale.model.User;
-import com.project.PointOfSale.services.UserService;
+import com.project.PointOfSale.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api/user")
 public class UserController {
-
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
-
-    @GetMapping("user")
-    public List<User> listUser(){
-        return userService.allUser();
+    @GetMapping("/login")
+    public LoginDto loginData(@RequestParam String username, @RequestParam String password){
+        return userService.loginData(username,password);
+    }
+    @GetMapping
+    public List<User> allUser(){
+        return userService.userList();
     }
 
-    @GetMapping("shop")
-    public List<Shop> listShop(){
-        return userService.allShop();
-    }
-
-    @PostMapping("user-add")
-    public User addUser(@RequestBody User user){
-    return userService.saveUser(user);
-    }
-
-    @PostMapping("create-shop")
-    public Shop addShop(@RequestBody Shop shop){
-    return userService.saveShop(shop);
+    @PostMapping
+    public User saveUser(@RequestBody User user){
+        return userService.saveUser(user);
     }
 }

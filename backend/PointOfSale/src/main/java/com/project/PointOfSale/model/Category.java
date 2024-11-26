@@ -1,21 +1,26 @@
 package com.project.PointOfSale.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "categories")
-public class Categories {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String name;
 
-//    private String product_id;
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("category")
+    private List<Product> products;
 
 }
