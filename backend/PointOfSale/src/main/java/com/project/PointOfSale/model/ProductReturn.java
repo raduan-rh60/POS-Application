@@ -11,8 +11,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "return")
-public class Return {
+@Table(name = "product_return")
+public class ProductReturn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { admin, employee } from './sidebar/sidebar-data';
-import { NavService } from '../../services/nav.service';
+import { NavService } from '../../services/loginService/nav.service';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
@@ -58,7 +58,7 @@ export class FullComponent implements OnInit {
   }
 
   constructor(private breakpointObserver: BreakpointObserver, private navService: NavService) {
-    
+
     this.htmlElement = document.querySelector('html')!;
     this.htmlElement.classList.add('light-theme');
     this.layoutChangesSubscription = this.breakpointObserver

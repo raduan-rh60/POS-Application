@@ -16,17 +16,10 @@
   <!-- --------------------------------------------------------------- -->
   <!-- Notification Dropdown -->
   <!-- --------------------------------------------------------------- -->
- 
+
 
   <span class="flex-1-auto"></span>
 
-  <mat-form-field appearance="outline" class="mt-4   ">
-    <mat-label>Select Shop</mat-label>
-    <mat-select>
-      <mat-option value="shop1">Shop1</mat-option>
-      <mat-option value="shop2">shop2</mat-option>
-    </mat-select>
-  </mat-form-field>
 
   <!-- --------------------------------------------------------------- -->
   <!-- profile Dropdown -->
@@ -37,16 +30,16 @@
     color="inherit"
     [matMenuTriggerFor]="profilemenu"
     aria-label="Notifications"
-    class="d-flex justify-content-center profile-btn-dd"
-  >
+    class="d-flex justify-content-center profile-btn-dd "
+  > {{User}}
     <img
       src="/assets/images/profile/user-1.jpg"
-      class="rounded-circle object-cover icon-35 profile-dd"
-      width="35"
+      class="rounded-circle object-cover icon-27 profile-dd"
+      width="27"
     />
   </button>
   <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
-    <button mat-menu-item>
+    <button mat-menu-item routerLink="profile">
       <mat-icon class="d-flex align-items-center"
         ><i
           data-icon="solar:shield-user-line-duotone"
@@ -57,10 +50,10 @@
     <button mat-menu-item>
       <mat-icon class="d-flex align-items-center"
         ><i
-          data-icon="solar:user-id-line-duotone"
+          data-icon="solar:shop-linear"
           class="iconify icon-22"
         ></i></mat-icon
-      >My Account
+      >Shop List
     </button>
     <button mat-menu-item>
       <mat-icon class="d-flex align-items-center"
@@ -68,7 +61,7 @@
           data-icon="solar:checklist-minimalistic-line-duotone"
           class="iconify icon-22"
         ></i> </mat-icon
-      >My Task
+      >Employee List
     </button>
 
     <div class="p-x-12 m-t-12">

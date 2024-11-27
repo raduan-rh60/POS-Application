@@ -17,6 +17,7 @@ export class AuthService {
 
   // Log in and store the token
   login(token: string): void {
+
     localStorage.setItem(this.TOKEN_KEY, token); // Save token in localStorage
     this.router.navigate(['/dashboard']); // Redirect to dashboard or any other route
   }

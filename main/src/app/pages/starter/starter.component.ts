@@ -2,10 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { AppNewCustomersComponent } from 'src/app/components/sale-target/new-customers.component';
 import { AppTotalIncomeComponent } from 'src/app/components/month-income-compare/total-income.component';
+import { AppBlogCardsComponent } from 'src/app/components/blog-card/blog-card.component';
 import { AppRevenueProductComponent } from 'src/app/components/revenue-product/revenue-product.component';
 import { AppRevenueForecastComponent } from 'src/app/components/revenue-forecast/revenue-forecast.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DecimalPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -25,6 +27,7 @@ interface Transaction {
     MaterialModule,
     AppNewCustomersComponent,
     AppTotalIncomeComponent,
+    AppBlogCardsComponent,
     AppRevenueProductComponent,
     AppRevenueForecastComponent,
     MatCardModule,

@@ -26,6 +26,8 @@ export class HeaderComponent {
   @Output() toggleMobileNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
+  User:string ="Admin";
+
   constructor(private authservice:AuthService) {}
   logout(){
     this.authservice.logout();

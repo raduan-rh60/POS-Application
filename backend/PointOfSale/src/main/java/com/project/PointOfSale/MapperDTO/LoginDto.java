@@ -1,10 +1,8 @@
 package com.project.PointOfSale.MapperDTO;
-import com.project.PointOfSale.enums.Role;
 
-public class LoginDto {
-    private long id;
-    private String username;
-    private String password;
-    private String email;
-    private Role role;
+public class LoginDTO {
+    Long id;
+    String name;
+    String role;
+    Long shop_id;
 }
