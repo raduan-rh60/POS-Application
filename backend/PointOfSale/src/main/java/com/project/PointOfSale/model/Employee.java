@@ -39,5 +39,5 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "shop_id")  // Foreign key for the shop
-    private Shop shop;
+    private Shop shopEmp;
 }

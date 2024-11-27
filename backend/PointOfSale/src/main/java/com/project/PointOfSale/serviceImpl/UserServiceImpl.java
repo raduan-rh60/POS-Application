@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.standard.Destination;
 import java.util.List;
 
 @Service
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService {
     public LoginDTO getUserById(long id) {
         User loginUser = userRepo.findById(id).get();
 
+
+      modelMapper.typeMap(User.class, LoginDTO.class).addMappings(mapper -> {
+  mapper.map(src -> src.getShop().getId(),LoginDTO::setShopId);
+  mapper.map(src -> src.getShop().getName(),LoginDTO::setShopName);
+});
         return modelMapper.map(loginUser,LoginDTO.class);
     }
 

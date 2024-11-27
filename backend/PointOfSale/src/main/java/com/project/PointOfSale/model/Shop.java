@@ -29,7 +29,7 @@ public class Shop {
 //  Bi-direction for employee and manager
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "manager_id",nullable = false)
-    @JsonIgnoreProperties(value = "shop")
+    @JsonIgnoreProperties(value = "shopEmp")
     private Employee shopManager;
 
 //  uni-direction for products and shop
