@@ -24,7 +24,7 @@ export const admin: NavItem[] = [
     divider: true
   },
   {
-    displayName: 'Sale Product',
+    displayName: 'POS',
     iconName: 'solar:archive-minimalistic-line-duotone',
     route: '/sales/pos',
   },
@@ -53,7 +53,7 @@ export const admin: NavItem[] = [
     iconName: 'solar:file-text-line-duotone',
     route: '/ui-components/forms',
   },
-  
+
   {
     navCap: 'Product Information',
     divider: true
@@ -181,7 +181,7 @@ export const employee: NavItem[] = [
     iconName: 'solar:file-text-line-duotone',
     route: '/ui-components/forms',
   },
-  
+
   {
     navCap: 'Product Information',
     divider: true

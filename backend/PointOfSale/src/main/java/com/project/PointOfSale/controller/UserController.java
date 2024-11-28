@@ -46,5 +46,9 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @GetMapping("/login/data")
+    public List<LoginDTO> userDtoData(){
+        return this.userService.getUserDto();
+    }
 
 }

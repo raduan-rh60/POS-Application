@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginDTO {
    private Long id;
-   private String name;
    private String role;
-   private Long shopId;
+   private String username;
+   private String name;
    private String shopName;
 }

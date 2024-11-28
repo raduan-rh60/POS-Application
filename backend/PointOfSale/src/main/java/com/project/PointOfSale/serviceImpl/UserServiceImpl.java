@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.print.attribute.standard.Destination;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
 
       modelMapper.typeMap(User.class, LoginDTO.class).addMappings(mapper -> {
-  mapper.map(src -> src.getShop().getId(),LoginDTO::setShopId);
+//  mapper.map(src -> src.getShop().getId(),LoginDTO::setShopId);
   mapper.map(src -> src.getShop().getName(),LoginDTO::setShopName);
 });
         return modelMapper.map(loginUser,LoginDTO.class);
@@ -52,4 +53,22 @@ public class UserServiceImpl implements UserService {
     public User getUserByIdall(long id) {
         return userRepo.findById(id).get();
     }
+
+    @Override
+    public List<LoginDTO> getUserDto() {
+        List<User> loginUser = userRepo.findAll();
+
+
+        modelMapper.typeMap(User.class, LoginDTO.class).addMappings(mapper -> {
+//  mapper.map(src -> src.getShop().getId(),LoginDTO::setShopId);
+            mapper.map(src -> src.getShop().getName(),LoginDTO::setShopName);
+        });
+        return loginUser.stream()
+                .map(user -> modelMapper.map(user, LoginDTO.class))
+                .collect(Collectors.toList());
+    }
+
 }
+
+
+

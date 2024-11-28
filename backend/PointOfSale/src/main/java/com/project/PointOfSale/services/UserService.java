@@ -11,4 +11,5 @@ public interface UserService {
    User saveUser(User user);
    LoginDTO getUserById(long id);
    User getUserByIdall(long id);
+   public List<LoginDTO> getUserDto();
 }
