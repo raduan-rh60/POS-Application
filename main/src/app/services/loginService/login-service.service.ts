@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {ShopData} from "../../pages/company/users/users.component";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class LoginServiceService {
   return this.http.post(this.baseUrl, param);
   }
 
-  usershowing(){
-    return this.http.get(`${this.baseUrl}/data`);
+  usershowing():Observable<ShopData[]> {
+    return this.http.get<ShopData[]>(`${this.baseUrl}/data`);
 }
 }

@@ -10,7 +10,7 @@ export const admin: NavItem[] = [
     route: '/dashboard',
   },
   {
-    displayName: 'Users',
+    displayName: 'Users & Employees',
     iconName: 'solar:users-group-rounded-outline',
     route: '/users',
   },

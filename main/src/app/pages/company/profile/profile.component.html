@@ -1,4 +1,50 @@
 <div class="row">
+<!-- Dashboard Title -->
+ <div class="col-md-4">
+  <mat-card class="cardWithShadow py-5">
+    <mat-card-content>
+      <div class="hstack align-items-center justify-content-center cover-full py-5">
+        <mat-card-title class="f-s-30 f-w-800 m-b-0 text-center py-4"
+        >
+        Company <br><br> Profile</mat-card-title
+        >
+      </div>
+    </mat-card-content>
+  </mat-card>
+ </div>
+<!--  User password Update-->
+  <div class="col-md-8">
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Update Password</mat-card-title
+          >
+        </div>
+        <hr>
+        <div class="row">
+          <form >
+            <div class="my-3">
+              <label for="currentPass"> Current Password</label>
+              <input id="currentPass" type="password" class="form-control" >
+            </div>
+            <div class="my-3">
+              <label for="newPass"> New Password</label>
+              <input id="newPass" type="password" class="form-control" >
+            </div>
+            <div class="my-3">
+              <label for="confirmPass"> Confirm Password</label>
+              <input id="confirmPass" type="password" class="form-control" >
+            </div>
+            <button type="submit"  mat-stroked-button color="primary" >Update</button>
+          </form>
+
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+  </div>
     <!-- Company Information Tab -->
     <div class="col-12">
         <mat-card class="cardWithShadow">
@@ -33,12 +79,12 @@
                             <strong> Company Address</strong>
                         </div>
                         <div class="col-8">{{companyData.companyAddress}}</div>
-                   
+
                     </div>
                 </div>
               </div>
-      
-            
+
+
             </mat-card-content>
           </mat-card>
     </div>
@@ -80,12 +126,12 @@
                             <strong> Owner Phone:</strong>
                         </div>
                         <div class="col-9">01254678</div>
-                   
+
                     </div>
                 </div>
               </div>
-      
-            
+
+
             </mat-card-content>
           </mat-card>
     </div>
@@ -100,13 +146,13 @@
                   >
                 </div>
                 <div class="col-md-6 text-end">
-                  <button mat-raised-button class="bg-primary text-white">
+                  <button mat-raised-button class="bg-primary text-white" (click)="showShopForm()">
                     Add Shop
                   </button>
                 </div>
               </div>
 
-       
+
               <div class="row">
                 <div class="col-12">
                   <div class="table-responsive">
@@ -116,19 +162,19 @@
                         <th mat-header-cell *matHeaderCellDef>Shop ID</th>
                         <td mat-cell *matCellDef="let shop">{{ shop.id }}</td>
                       </ng-container>
-        
+
                       <!-- Shop Location Column -->
                       <ng-container matColumnDef="shopLocation">
                         <th mat-header-cell *matHeaderCellDef>Shop Location</th>
                         <td mat-cell *matCellDef="let shop">{{ shop.location }}</td>
                       </ng-container>
-        
+
                       <!-- Shop Manager Column -->
                       <ng-container matColumnDef="shopManager">
                         <th mat-header-cell *matHeaderCellDef>shop Manager</th>
                         <td mat-cell *matCellDef="let shop">{{ shop.manager }}</td>
                       </ng-container>
-        
+
                       <!-- Shop Manager Email Column -->
                       <ng-container matColumnDef="shopManagerEmail">
                         <th mat-header-cell *matHeaderCellDef>Shop Manager Email</th>
@@ -144,13 +190,13 @@
                           {{ shop.managerPhone }}
                         </td>
                       </ng-container>
-        
+
                       <!-- Action Column -->
                       <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef class="text-end">Action</th>
                         <td mat-cell *matCellDef="let shop">
                           <div class="row">
-                            
+
                             <div class="col-12 justify-content-end text-end">
                               <button mat-icon-button color="primary">
                                 <i class="bi bi-pencil-square"></i>
@@ -158,12 +204,12 @@
                               <button mat-icon-button color="warn">
                                 <i class="bi bi-trash"></i>
                               </button>
-                             
+
                             </div>
                           </div>
                         </td>
                       </ng-container>
-        
+
                       <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
                       <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
                     </table>
@@ -173,4 +219,85 @@
             </mat-card-content>
           </mat-card>
     </div>
+</div>
+
+
+<!--shop Add form-->
+<div class="card flex justify-content-center">
+
+  <p-dialog
+    header="Header"
+    [(visible)]="visibleShop"
+    [modal]="true"
+    [style]="{ width: '50rem' }">
+
+
+    <form class="needs-validation" novalidate>
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom01">First name</label>
+          <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustom02">Last name</label>
+          <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationCustomUsername">Username</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupPrepend">{{"@"}}</span>
+            </div>
+            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+            <div class="invalid-feedback">
+              Please choose a username.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">City</label>
+          <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+          <div class="invalid-feedback">
+            Please provide a valid city.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom04">State</label>
+          <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom05">Zip</label>
+          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+          <div class="invalid-feedback">
+            Please provide a valid zip.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+          <label class="form-check-label" for="invalidCheck">
+            Agree to terms and conditions
+          </label>
+          <div class="invalid-feedback">
+            You must agree before submitting.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+
+
+  </p-dialog>
 </div>

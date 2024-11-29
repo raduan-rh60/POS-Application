@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <mat-card class="cardWithShadow bg-light-primary">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -25,7 +25,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <mat-card class="cardWithShadow bg-light-accent">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -39,6 +39,32 @@
           </div>
           <mat-card-title class="f-s-16 f-w-500 m-b-0"
           >Total Users
+          </mat-card-title
+          >
+        </div>
+
+        <div class="row">
+          <div class="col-12 f-a-e">
+            <h5 class="f-s-22 f-w-500 m-b-4 m-t-10">10</h5>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4">
+    <mat-card class="cardWithShadow bg-light-warning">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40 d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i
+              class="iconify f-s-40 text-success"
+              data-icon="solar:users-group-two-rounded-linear"
+            ></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Total Employees
           </mat-card-title
           >
         </div>
@@ -70,67 +96,44 @@
       </div>
 
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 mt-3">
           <div class="table-responsive">
-            <table mat-table [dataSource]="userData" class="mat-elevation-z8">
-              <!-- ID Column -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td mat-cell *matCellDef="let user">{{ user.id }}</td>
-              </ng-container>
+            <p-table
+              [value]="userData"
+              [paginator]="true"
+              [rows]="5"
+              [tableStyle]="{ 'min-width': '50rem' }"
+              [rowsPerPageOptions]="[5, 10, 20]"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>id</th>
+                  <th>name</th>
+                  <th>username</th>
+                  <th>role</th>
+                  <th>shopName</th>
+                  <th>details</th>
+                  <th>action</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-customer>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let user">{{ user.name }}</td>
-              </ng-container>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="username">
-                <th mat-header-cell *matHeaderCellDef>Username</th>
-                <td mat-cell *matCellDef="let user">{{ user.username }}</td>
-              </ng-container>
+                    <tr>
+                  <td>{{ customer.id }}</td>
+                  <td>{{ customer.name }}</td>
+                  <td>{{ customer.username }}</td>
+                  <td>{{ customer.role }}</td>
+                  <td>{{ customer.shopName }}</td>
+                  <td><button mat-raised-button color="accent">details</button></td>
+                  <td>
+                    <button mat-raised-button ><i class="bi bi-trash-fill text-error"></i></button>
+                  </td>
+                </tr>
 
-              <!-- Role Column -->
-              <ng-container matColumnDef="role">
-                <th mat-header-cell *matHeaderCellDef>User Role</th>
-                <td mat-cell *matCellDef="let user">{{ user.role }}</td>
-              </ng-container>
 
-              <!-- Shop Referance Column -->
-              <ng-container matColumnDef="shopName">
-                <th mat-header-cell *matHeaderCellDef>Shop Referance</th>
-                <td mat-cell *matCellDef="let user">
-                  {{ user.shopName }}
-                </td>
-              </ng-container>
-
-              <!-- Shop Referance Column -->
-              <ng-container matColumnDef="details">
-                <th mat-header-cell *matHeaderCellDef>View Details</th>
-                <td mat-cell *matCellDef="let user">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <button mat-flat-button class="bg-light-primary">
-                        Details
-                      </button>
-                    </div>
-                    <div class="col-9 justify-content-end text-end">
-                      <button mat-icon-button color="primary">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                      <button mat-icon-button color="warn">
-                        <i class="bi bi-trash"></i>
-                      </button>
-
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
-            </table>
+              </ng-template>
+            </p-table>
           </div>
         </div>
       </div>
@@ -138,24 +141,48 @@
   </mat-card>
 
 
+  <!-- User add form dialogue box -->
   <p-dialog header="AddUser" [modal]="true" [(visible)]="visible" [style]="{ width: '60rem' }">
 
     <form>
       <div class="row">
         <div class="col-6 my-3">
-          <input type="text" class="form-control" placeholder="Name">
+          <label for="name">Name</label>
+          <input id="name" type="text" class="form-control" >
         </div>
         <div class="col-6 my-3">
-          <input type="text" class="form-control" placeholder="Email">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email">
         </div>
         <div class="col-6 my-3">
-          <input type="text" class="form-control" placeholder="Username">
+          <label for="userName">User Name</label>
+          <input type="text" class="form-control" id="userName">
         </div>
         <div class="col-6 my-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="text" class="form-control" id="phoneNumber">
         </div>
         <div class="col-6 my-3">
-          <input type="text" class="form-control" placeholder="ShopReferance">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password">
+        </div>
+        <div class="col-6 my-3">
+          <label for="role">User Role</label>
+          <select class="form-control" name="" id="role">
+            <option disabled selected>select</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="MANAGER">MANAGER</option>
+            <option value="SALES">SALES</option>
+          </select>
+        </div>
+        <div class="col-6 my-3">
+          <label for="shop">Shop Referance</label>
+          <select class="form-control" name="" id="shop">
+            <option  disabled selected>Select</option>
+            <option value="SHOP1">SHOP1</option>
+            <option value="SHOP2">SHOP2</option>
+            <option value="SHOP3">SHOP3</option>
+          </select>
         </div>
 
       </div>
