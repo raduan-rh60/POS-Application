@@ -58,24 +58,45 @@ export const admin: NavItem[] = [
     navCap: 'Product Information',
     divider: true
   },
-  {
-    displayName: 'Units',
-    iconName: 'solar:login-3-line-duotone',
-    route: '',
-  },
+
   {
     displayName: 'Products',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '',
+    iconName: 'solar:box-outline',
+    route: '/sales/priduct-lists',
   },
   {
     displayName: 'Product Categories',
-    iconName: 'solar:user-plus-rounded-line-duotone',
+    iconName: 'solar:clipboard-list-linear',
     route: '',
   },
   {
-    displayName: 'Product Stock',
-    iconName: 'solar:user-plus-rounded-line-duotone',
+    displayName: 'Product Brands',
+    iconName: 'solar:library-line-duotone',
+    route: '',
+  },
+  {
+    navCap: 'Product Reports',
+    divider: true
+  },
+
+  {
+    displayName: 'Sale',
+    iconName: 'solar:box-outline',
+    route: '/sales/priduct-lists',
+  },
+  {
+    displayName: 'Stock',
+    iconName: 'solar:clipboard-list-linear',
+    route: '',
+  },
+  {
+    displayName: 'return',
+    iconName: 'solar:library-line-duotone',
+    route: '',
+  },
+  {
+    displayName: 'damage',
+    iconName: 'solar:library-line-duotone',
     route: '',
   },
   {
@@ -83,12 +104,12 @@ export const admin: NavItem[] = [
     divider: true
   },
   {
-    displayName: 'Customer Name',
+    displayName: 'Customer',
     iconName: 'solar:login-3-line-duotone',
     route: '',
   },
   {
-    displayName: 'Suplier Name',
+    displayName: 'Suplier',
     iconName: 'solar:user-plus-rounded-line-duotone',
     route: '',
   },
@@ -248,19 +269,6 @@ export const employee: NavItem[] = [
     displayName: 'Purchase Report',
     iconName: 'solar:user-plus-rounded-line-duotone',
     route: '',
-  },
-  {
-    navCap: 'Extra',
-    divider: true
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'solar:sticker-smile-circle-2-line-duotone',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'solar:planet-3-line-duotone',
-    route: '/extra/sample-page',
-  },
+  }
+ 
 ];

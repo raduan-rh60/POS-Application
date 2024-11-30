@@ -54,5 +54,9 @@ export class UsersComponent implements AfterViewInit {
   }
 
   // Employee Table Data
+  empVisible:boolean=false;
+  showEmpDialogue() {
+    this.empVisible = true;
+  }
 
 }

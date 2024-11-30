@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AppBadgeComponent } from './badge/badge.component';
 import { AppChipsComponent } from './chips/chips.component';
-import { AppListsComponent } from './lists/lists.component';
+import { AppProductListsComponent } from './product-lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { AppFormsComponent } from './forms/forms.component';
@@ -28,8 +27,8 @@ export const ProductComponent: Routes = [
         component: AppChipsComponent,
       },
       {
-        path: 'lists',
-        component: AppListsComponent,
+        path: 'priduct-lists',
+        component: AppProductListsComponent,
       },
       {
         path: 'menu',
