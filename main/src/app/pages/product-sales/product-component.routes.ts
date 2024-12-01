@@ -9,6 +9,7 @@ import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { GenerateSaleComponent } from './generate-sale/generate-sale.component';
 import { AllSalesComponent } from './all-sales/all-sales.component';
+import { CategoryAndBrandsComponent } from './category-and-brands/category-and-brands.component';
 
 export const ProductComponent: Routes = [
   {
@@ -31,8 +32,8 @@ export const ProductComponent: Routes = [
         component: AppProductListsComponent,
       },
       {
-        path: 'menu',
-        component: AppMenuComponent,
+        path: 'category-brands',
+        component: CategoryAndBrandsComponent,
       },
       {
         path: 'tooltips',

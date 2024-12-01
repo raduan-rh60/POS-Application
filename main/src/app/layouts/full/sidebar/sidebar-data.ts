@@ -65,15 +65,11 @@ export const admin: NavItem[] = [
     route: '/sales/priduct-lists',
   },
   {
-    displayName: 'Product Categories',
+    displayName: 'Categories & Brands',
     iconName: 'solar:clipboard-list-linear',
-    route: '',
+    route: '/sales/category-brands',
   },
-  {
-    displayName: 'Product Brands',
-    iconName: 'solar:library-line-duotone',
-    route: '',
-  },
+ 
   {
     navCap: 'Product Reports',
     divider: true
