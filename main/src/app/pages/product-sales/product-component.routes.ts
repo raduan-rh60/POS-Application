@@ -1,15 +1,13 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AppChipsComponent } from './chips/chips.component';
-import { AppProductListsComponent } from './product-lists/lists.component';
-import { AppMenuComponent } from './menu/menu.component';
-import { AppTooltipsComponent } from './tooltips/tooltips.component';
-import { AppFormsComponent } from './forms/forms.component';
-import { AppTablesComponent } from './tables/tables.component';
+
 import { GenerateSaleComponent } from './generate-sale/generate-sale.component';
 import { AllSalesComponent } from './all-sales/all-sales.component';
-import { CategoryAndBrandsComponent } from './category-and-brands/category-and-brands.component';
+import { ReturnListComponent } from './return-list/return-list.component';
+import { PurchaseListComponent } from './purchase-list/purchase-list.component';
+import { ProductDamageListComponent } from './product-damage-list/product-damage-list.component';
+import { ProductStockListComponent } from './product-stock-list/product-stock-list.component';
 
 export const ProductComponent: Routes = [
   {
@@ -24,28 +22,21 @@ export const ProductComponent: Routes = [
         component: GenerateSaleComponent,
       },
       {
-        path: 'chips',
-        component: AppChipsComponent,
+        path: 'return',
+        component: ReturnListComponent,
+      },
+      
+      {
+        path: 'purchase-list',
+        component: PurchaseListComponent,
       },
       {
-        path: 'priduct-lists',
-        component: AppProductListsComponent,
+        path: 'damage',
+        component: ProductDamageListComponent,
       },
       {
-        path: 'category-brands',
-        component: CategoryAndBrandsComponent,
-      },
-      {
-        path: 'tooltips',
-        component: AppTooltipsComponent,
-      },
-      {
-        path: 'forms',
-        component: AppFormsComponent,
-      },
-      {
-        path: 'tables',
-        component: AppTablesComponent,
+        path: 'stock',
+        component: ProductStockListComponent,
       },
     ],
   },

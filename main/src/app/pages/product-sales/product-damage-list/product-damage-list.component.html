@@ -1,1 +1,53 @@
-<p>product-damage-list works!</p>
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Product Informaiton</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <div class="table-responsive">
+        <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
+          <ng-template pTemplate="header">
+              <tr>
+                <th>id</th>
+                <th>Product_id</th>
+                <th pSortableColumn="ProductName">Name</th>
+                <th pSortableColumn="ProductStock">quantity</th>
+                <th pSortableColumn="PurchasePrice">Purchase</th>
+                <th pSortableColumn="category">Category</th>
+                <th pSortableColumn="brand">Brand</th>
+                <th >Action</th>
+                  
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-dataSource>
+              <tr>
+                  <td>
+                    <img
+                [src]= dataSource.imagePath 
+                alt="users"
+                width="48"
+                class="rounded"
+              /></td>
+                  <td>{{ dataSource.productId }}</td>
+                  <td>{{ dataSource.pName }}</td>
+                  <td>{{ dataSource.sQuantity }}</td>
+                  <td>{{ dataSource.productPrice}}</td>
+                  <td>{{ dataSource.paidPrice }}</td>
+                  <td>{{ dataSource.duePrice }}</td>
+                  <td>{{ dataSource.customerName }}</td>
+                
+                  <td><span
+                    ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                      <button mat-icon-button color="warn">
+                        <i class="bi bi-trash"></i>
+                      </button></span
+                    ></span
+                  ></td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

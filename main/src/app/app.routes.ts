@@ -29,14 +29,24 @@ export const routes: Routes = [
           ),
           canActivate: [AuthGuard],
       },
+      {
+        path: 'product',
+        loadChildren: () =>
+          import('./pages/product-info/product-info.routes').then(
+            (m) => m.ProductComponent
+          ),
+          canActivate: [AuthGuard],
+      },
+      {
+        path: 'relation',
+        loadChildren: () =>
+          import('./pages/people/relation.routes').then(
+            (m) => m.RelationComponent
+          ),
+          canActivate: [AuthGuard],
+      },
       {path:'users', component:UsersComponent, canActivate: [AuthGuard],},
       {path:'profile', component:ProfileComponent, canActivate: [AuthGuard],},
-      {
-        path: 'extra',
-        loadChildren: () =>
-          import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
-        canActivate: [AuthGuard],
-      },
       
     ],
   },

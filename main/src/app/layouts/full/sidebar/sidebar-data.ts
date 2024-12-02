@@ -36,22 +36,22 @@ export const admin: NavItem[] = [
   {
     displayName: 'Returns',
     iconName: 'solar:bookmark-square-minimalistic-line-duotone',
-    route: '/ui-components/lists',
+    route: '/sales/return',
   },
   {
     displayName: 'Purchase',
     iconName: 'solar:file-text-line-duotone',
-    route: '/ui-components/menu',
+    route: '/sales/purchase-list',
   },
   {
     displayName: 'Stock',
     iconName: 'solar:text-field-focus-line-duotone',
-    route: '/ui-components/tooltips',
+    route: '/sales/stock',
   },
   {
     displayName: 'Damages',
     iconName: 'solar:file-text-line-duotone',
-    route: '/ui-components/forms',
+    route: '/sales/damage',
   },
 
   {
@@ -62,39 +62,15 @@ export const admin: NavItem[] = [
   {
     displayName: 'Products',
     iconName: 'solar:box-outline',
-    route: '/sales/priduct-lists',
+    route: '/product/product-lists',
   },
   {
     displayName: 'Categories & Brands',
     iconName: 'solar:clipboard-list-linear',
-    route: '/sales/category-brands',
+    route: '/product/category-brands',
   },
  
-  {
-    navCap: 'Product Reports',
-    divider: true
-  },
-
-  {
-    displayName: 'Sale',
-    iconName: 'solar:box-outline',
-    route: '/sales/priduct-lists',
-  },
-  {
-    displayName: 'Stock',
-    iconName: 'solar:clipboard-list-linear',
-    route: '',
-  },
-  {
-    displayName: 'return',
-    iconName: 'solar:library-line-duotone',
-    route: '',
-  },
-  {
-    displayName: 'damage',
-    iconName: 'solar:library-line-duotone',
-    route: '',
-  },
+ 
   {
     navCap: 'People',
     divider: true
@@ -102,12 +78,12 @@ export const admin: NavItem[] = [
   {
     displayName: 'Customer',
     iconName: 'solar:login-3-line-duotone',
-    route: '',
+    route: '/relation/customer',
   },
   {
     displayName: 'Suplier',
     iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '',
+    route: '/relation/supplier',
   },
   {
     navCap: 'Reports',
@@ -138,20 +114,7 @@ export const admin: NavItem[] = [
     iconName: 'solar:user-plus-rounded-line-duotone',
     route: '',
   },
-  {
-    navCap: 'Extra',
-    divider: true
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'solar:sticker-smile-circle-2-line-duotone',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'solar:planet-3-line-duotone',
-    route: '/extra/sample-page',
-  },
+ 
 ];
 export const employee: NavItem[] = [
   {
