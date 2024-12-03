@@ -1,1 +1,167 @@
-<p>customer works!</p>
+<div class="row">
+    <div class="col-md-6">
+      <mat-card class="cardWithShadow bg-light-primary">
+        <mat-card-content>
+          <div class="hstack align-items-center">
+            <div
+              class="rounded icon-40 d-flex align-items-center flex-shrink-0 justify-content-center"
+            >
+              <i
+                class="iconify f-s-40 text-success"
+                data-icon="solar:shop-bold"
+              ></i>
+            </div>
+            <mat-card-title class="f-s-16 f-w-500 m-b-0"
+            >Total Customers
+            </mat-card-title
+            >
+          </div>
+  
+          <div class="row">
+            <div class="col-12 f-a-e">
+              <h5 class="f-s-22 f-w-500 m-b-4 m-t-10 text-end">5</h5>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6">
+      <mat-card class="cardWithShadow bg-light-accent">
+        <mat-card-content>
+          <div class="hstack align-items-center">
+            <div
+              class="rounded icon-40 d-flex align-items-center flex-shrink-0 justify-content-center"
+            >
+              <i
+                class="iconify f-s-40 text-success"
+                data-icon="solar:user-linear"
+              ></i>
+            </div>
+            <mat-card-title class="f-s-16 f-w-500 m-b-0"
+            >New Customers this month
+            </mat-card-title
+            >
+          </div>
+  
+          <div class="row">
+            <div class="col-12 f-a-e">
+              <h5 class="f-s-22 f-w-500 m-b-4 m-t-10 text-end">10</h5>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+   
+    <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6">
+  
+            <mat-card-title class="f-s-16 f-w-500 m-b-0"
+            >Customers List
+            </mat-card-title
+            >
+          </div>
+          <div class="col-md-6 text-end">
+            <button mat-raised-button class="bg-primary text-white" >
+              Add Customer
+            </button>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-12 mt-3">
+            <div class="table-responsive">
+              <p-table
+                [value]="allCustomer"
+                [paginator]="true"
+                [rows]="5"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                [rowsPerPageOptions]="[5, 10, 20]"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Customer Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Total bought</th>
+                    <th>action</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+  
+  
+                      <tr>
+                    <td>{{ customer.id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.username }}</td>
+                    <td>{{ customer.shopName }}</td>
+                    <td>
+                      <button mat-raised-button ><i class="bi bi-trash-fill text-error"></i></button>
+                    </td>
+                  </tr>
+  
+  
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+   
+  
+    <!-- Customer add form dialogue box -->
+    <p-dialog header="Category Form" [modal]="true" [(visible)]="catDialogue" [style]="{ width: '60rem' }">
+  
+      <form>
+        <div class="row">
+          <div class="col-6 my-3">
+            <label for="name">Name</label>
+            <input id="name" type="text" class="form-control" >
+          </div>
+          <div class="col-6 my-3">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email">
+          </div>
+          <div class="col-6 my-3">
+            <label for="userName">User Name</label>
+            <input type="text" class="form-control" id="userName">
+          </div>
+          <div class="col-6 my-3">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber">
+          </div>
+          <div class="col-6 my-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+          <div class="col-6 my-3">
+            <label for="role">User Role</label>
+            <select class="form-control" name="" id="role">
+              <option disabled selected>select</option>
+              <option value="ADMIN">ADMIN</option>
+              <option value="MANAGER">MANAGER</option>
+              <option value="SALES">SALES</option>
+            </select>
+          </div>
+          <div class="col-6 my-3">
+            <label for="shop">Shop Referance</label>
+            <select class="form-control" name="" id="shop">
+              <option  disabled selected>Select</option>
+              <option value="SHOP1">SHOP1</option>
+              <option value="SHOP2">SHOP2</option>
+              <option value="SHOP3">SHOP3</option>
+            </select>
+          </div>
+  
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </p-dialog>
+  
+    
+  </div>
