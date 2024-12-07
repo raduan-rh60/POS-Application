@@ -34,6 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employeeData = employeeRepo.findAll();
 
         modelMapper.typeMap(Employee.class,EmployeeDTO.class).addMappings(mapper->{
+
             mapper.map(src->src.getManager().getId(),EmployeeDTO::setManagerID);
 //            mapper.map(src->src.getSubordinates().toArray().length,EmployeeDTO::setSubordinates);
         });
