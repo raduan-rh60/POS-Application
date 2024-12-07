@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
         modelMapper.typeMap(Category.class, CategoryDTO.class).addMappings(mapping ->{
 //            mapping.map(src->src.getName(),CategoryDTO::setName);
 //            mapping.map(src->src.getId(),CategoryDTO::setId);
-            mapping.map(src-> src.getProducts() == null ? 1 : src.getProducts().size(),CategoryDTO::setProductCount);
+            mapping.map(src-> src.getProducts() == null ? 0 : src.getProducts().size(),CategoryDTO::setProductCount);
         });
         return category.stream().map( category1 -> modelMapper.map(category, CategoryDTO.class)).collect(Collectors.toList());
     }
