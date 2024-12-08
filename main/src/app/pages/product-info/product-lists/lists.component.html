@@ -1,55 +1,99 @@
-<mat-card class="cardWithShadow theme-card">
-  <mat-card-header>
-    <mat-card-title class="m-b-0">Product Informaiton</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="b-t-1">
-    <div class="table-responsive">
-      <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
-        <ng-template pTemplate="header">
-            <tr>
-              <th>id</th>
-              <th>Product Image</th>
-              <th pSortableColumn="ProductName">Name</th>
-              <th pSortableColumn="ProductStock">Stock</th>
-              <th pSortableColumn="PurchasePrice">Purchase</th>
-              <th pSortableColumn="salingPrice">Sale</th>
-              <th pSortableColumn="category">Category</th>
-              <th pSortableColumn="brand">Brand</th>
-              <th >Action</th>
-                
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-dataSource>
-            <tr>
-                <td>
-                  <img
-              [src]= dataSource.imagePath 
-              alt="users"
-              width="48"
-              class="rounded"
-            /></td>
-                <td>{{ dataSource.productId }}</td>
-                <td>{{ dataSource.pName }}</td>
-                <td>{{ dataSource.sQuantity }}</td>
-                <td>{{ dataSource.productPrice}}</td>
-                <td>{{ dataSource.paidPrice }}</td>
-                <td>{{ dataSource.duePrice }}</td>
-                <td>{{ dataSource.customerName }}</td>
-                <td>{{ dataSource.saleDate }}</td>
-                <td>{{ dataSource.saleTime }}</td>
-                <td>{{ dataSource.shopeReferance }}</td>
-                <td><span
-                  ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button mat-icon-button color="warn">
-                      <i class="bi bi-trash"></i>
-                    </button></span
-                  ></span
-                ></td>
-            </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  </mat-card-content>
-</mat-card>
+    <mat-card class="cardWithShadow theme-card">
+
+
+
+      <mat-card-content >
+        <div class="row">
+          <div class="col-md-6">
+            <mat-card-title class="f-s-16 f-w-500 m-b-0">Brands </mat-card-title>
+          </div>
+          <div class="col-md-6 text-end">
+            <button
+              mat-raised-button
+              class="bg-primary text-white"
+              (click)="productDialogOpen()"
+            >
+              Add Products
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive mt-4">
+          <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                  <th>id</th>
+                  <th>Product Image</th>
+                  <th pSortableColumn="ProductName">Name</th>
+                  <th pSortableColumn="ProductStock">Stock</th>
+                  <th pSortableColumn="PurchasePrice">Purchase</th>
+                  <th pSortableColumn="salingPrice">Sale</th>
+                  <th pSortableColumn="category">Category</th>
+                  <th pSortableColumn="brand">Brand</th>
+                  <th >Action</th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-dataSource>
+                <tr>
+                    <td>
+                      <img
+                  [src]= dataSource.imagePath
+                  alt="users"
+                  width="48"
+                  class="rounded"
+                /></td>
+                    <td>{{ dataSource.productId }}</td>
+                    <td>{{ dataSource.pName }}</td>
+                    <td>{{ dataSource.sQuantity }}</td>
+                    <td>{{ dataSource.productPrice}}</td>
+                    <td>{{ dataSource.paidPrice }}</td>
+                    <td>{{ dataSource.duePrice }}</td>
+                    <td>{{ dataSource.customerName }}</td>
+                    <td>{{ dataSource.saleDate }}</td>
+                    <td>{{ dataSource.saleTime }}</td>
+                    <td>{{ dataSource.shopeReferance }}</td>
+                    <td><span
+                      ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
+                          <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button mat-icon-button color="warn">
+                          <i class="bi bi-trash"></i>
+                        </button></span
+                      ></span
+                    ></td>
+                </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- product Add Form -->
+    <p-dialog
+    header="Product Form"
+    [modal]="true"
+    [(visible)]="productDialog"
+    [style]="{ width: '50vw' }"
+    >
+    <form>
+      <div class="row py-5">
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputBrand" name="name" formControlName="name">
+            <label for="floatingInputBrand">Product Name</label>
+          </div>
+        </div>
+
+      <div class="col-6 text-center mt-1 ">
+        <button type="submit" mat-raised-button color="primary">Add</button>
+      </div>
+      </div>
+    </form>
+    @if (addSuccess) {
+      <mat-card-title class="text-success text-center"> Product Added Successful</mat-card-title>
+    } @else if (addError){
+      <mat-card-title class="text-error text-center"> Something wrong</mat-card-title>
+
+    }
+    </p-dialog>

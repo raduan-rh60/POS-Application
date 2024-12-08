@@ -25,6 +25,6 @@ export class CategoryService {
   }
 
   public delete(id:number){
-    return this.https.delete(`${this.baseUrl}/${id}`);
+    return this.https.delete(`${this.baseUrl}/${id}`,{responseType: 'text'});
   }
 }
