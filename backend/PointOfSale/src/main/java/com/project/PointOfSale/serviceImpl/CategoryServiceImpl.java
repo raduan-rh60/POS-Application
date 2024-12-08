@@ -22,14 +22,42 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDTO> categoryList() {
-        List<Category> category = categoryRepo.findAll();
-        modelMapper.typeMap(Category.class, CategoryDTO.class).addMappings(mapping ->{
-//            mapping.map(src->src.getName(),CategoryDTO::setName);
-//            mapping.map(src->src.getId(),CategoryDTO::setId);
-            mapping.map(src-> src.getProducts() == null ? 0 : src.getProducts().size(),CategoryDTO::setProductCount);
-        });
-        return category.stream().map( category1 -> modelMapper.map(category, CategoryDTO.class)).collect(Collectors.toList());
+        // Fetch all categories from the repository
+        List<Category> repoCategory = categoryRepo.findAll();
+
+        // Convert each Category to CategoryDTO
+        return repoCategory.stream().map(category -> {
+            // Create a CategoryDTO instance
+            CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+
+            // Manually set the product count (size of the products collection)
+            if (category.getProducts() != null) {
+                categoryDTO.setProductCount(category.getProducts().size()); // Set product count
+            } else {
+                categoryDTO.setProductCount(0); // Set product count as 0 if no products are present
+            }
+
+            return categoryDTO;
+        }).collect(Collectors.toList());
     }
+
+
+
+
+//    public List<CategoryDTO> categoryList() {
+//        List<Category> repoCategory = categoryRepo.findAll();
+//
+//        // Set up a custom mapping to handle the PersistentBag correctly
+//        modelMapper.typeMap(Category.class, CategoryDTO.class).addMappings(mapping -> {
+//            // Map the size of the products list (PersistentBag) to the productCount in DTO
+//            mapping.map(src -> src.getProducts() == null ? 0 : src.getProducts().size(), CategoryDTO::setProductCount);
+//        });
+//
+//        // Map each Category object to CategoryDTO
+//        return repoCategory.stream()
+//                .map(category -> modelMapper.map(category, CategoryDTO.class))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public Category save(Category category) {
@@ -45,11 +73,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(long id) {
+    public void deleteCategory(long id) {
         categoryRepo.deleteById(id);
     }
 
-    public List<Category> test(){
-        return categoryRepo.findAll();
-    }
+
 }

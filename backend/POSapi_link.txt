@@ -1,0 +1,22 @@
+
+<===========POS API spring boot =======>
+
+// Category api====================
+get all => http://localhost:8080/api/category
+
+post =>http://localhost:8080/api/category/save
+
+delete => http://localhost:8080/api/category/{id}
+
+put => http://localhost:8080/api/category/edit
+
+//Brand api===========================
+
+get all => http://localhost:8080/api/brand
+
+post => http://localhost:8080/api/brand/save
+
+delete => http://localhost:8080/api/brand/{id}
+
+put => http://localhost:8080/api/brand/edit
+

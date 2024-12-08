@@ -48,6 +48,8 @@ export class FullComponent implements OnInit {
 
   //get options from service
   private layoutChangesSubscription = Subscription.EMPTY;
+  private routeChangesSubscription = Subscription.EMPTY;
+
   private isMobileScreen = false;
   private isContentWidthFixed = true;
   private isCollapsedWidthFixed = false;
@@ -57,7 +59,7 @@ export class FullComponent implements OnInit {
     return this.isMobileScreen;
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, private navService: NavService) {
+  constructor(private breakpointObserver: BreakpointObserver, private navService: NavService, private router:Router) {
 
     this.htmlElement = document.querySelector('html')!;
     this.htmlElement.classList.add('light-theme');
@@ -70,12 +72,28 @@ export class FullComponent implements OnInit {
 
         this.isContentWidthFixed = state.breakpoints[MONITOR_VIEW];
       });
+
+      // collapse navbar for the pos application
+      this.routeChangesSubscription = this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          // Check if current route is '/sales/pos', and close sidenav
+          if (event.url === '/sales/pos') {
+            this.isMobileScreen=true;
+          } else {
+            this.isMobileScreen =false;
+          }
+        }
+      });
+    
   }
+
+
 
   ngOnInit(): void {}
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
+    this.routeChangesSubscription.unsubscribe();
   }
 
   toggleCollapsed() {

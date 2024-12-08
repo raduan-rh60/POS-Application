@@ -9,5 +9,5 @@ public interface CategoryService {
     List<CategoryDTO> categoryList();
     Category save(Category category);
     Category update(Category category);
-    void delete(long id);
+    void deleteCategory(long id);
 }
