@@ -69,38 +69,32 @@
           </div>
         </div>
   
-        <div class="row">
-          <div class="col-12 mt-3">
+        <div class="">
+          <div class=" mt-3">
             <div class="table-responsive">
               <p-table
                 [value]="catData"
                 [paginator]="true"
                 [rows]="5"
-                [tableStyle]="{ 'min-width': '50rem' }"
                 [rowsPerPageOptions]="[5, 10, 20]"
               >
                 <ng-template pTemplate="header">
-                  <tr>
+                  <tr >
                     <th>id</th>
-                    <th>name</th>
-                    <th>username</th>
-                    <th>role</th>
-                    <th>shopName</th>
-                    <th>details</th>
-                    <th>action</th>
+                    <th class="w-50">name</th>
+                    <th>Products</th>
+                    <th class="align-content-end">action</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-customer>
+                <ng-template pTemplate="body" let-category>
   
   
                       <tr>
-                    <td>{{ customer.id }}</td>
-                    <td>{{ customer.name }}</td>
-                    <td>{{ customer.username }}</td>
-                    <td>{{ customer.role }}</td>
-                    <td>{{ customer.shopName }}</td>
-                    <td><button mat-raised-button color="accent">details</button></td>
-                    <td>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.productCount }}</td>
+                    <td><button mat-raised-button color="accent">Edit</button>
+                   
                       <button mat-raised-button ><i class="bi bi-trash-fill text-error"></i></button>
                     </td>
                   </tr>
@@ -185,40 +179,7 @@
             <label for="name">Name</label>
             <input id="name" type="text" class="form-control" >
           </div>
-          <div class="col-6 my-3">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email">
-          </div>
-          <div class="col-6 my-3">
-            <label for="userName">User Name</label>
-            <input type="text" class="form-control" id="userName">
-          </div>
-          <div class="col-6 my-3">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text" class="form-control" id="phoneNumber">
-          </div>
-          <div class="col-6 my-3">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
-          </div>
-          <div class="col-6 my-3">
-            <label for="role">User Role</label>
-            <select class="form-control" name="" id="role">
-              <option disabled selected>select</option>
-              <option value="ADMIN">ADMIN</option>
-              <option value="MANAGER">MANAGER</option>
-              <option value="SALES">SALES</option>
-            </select>
-          </div>
-          <div class="col-6 my-3">
-            <label for="shop">Shop Referance</label>
-            <select class="form-control" name="" id="shop">
-              <option  disabled selected>Select</option>
-              <option value="SHOP1">SHOP1</option>
-              <option value="SHOP2">SHOP2</option>
-              <option value="SHOP3">SHOP3</option>
-            </select>
-          </div>
+          
   
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -228,7 +189,7 @@
     <!-- Brand add form dialogue box -->
    
   
-    <p-dialog header="Employee Form" [modal]="true" [(visible)]="branDialog" [style]="{ width: '60rem' }">
+    <p-dialog header="Brand Form" [modal]="true" [(visible)]="branDialog" [style]="{ width: '60rem' }">
   
       <form>
         <div class="row">
@@ -236,40 +197,7 @@
             <label for="name">Name</label>
             <input id="name" type="text" class="form-control" >
           </div>
-          <div class="col-6 my-3">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email">
-          </div>
-          <div class="col-6 my-3">
-            <label for="userName">User Name</label>
-            <input type="text" class="form-control" id="userName">
-          </div>
-          <div class="col-6 my-3">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text" class="form-control" id="phoneNumber">
-          </div>
-          <div class="col-6 my-3">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
-          </div>
-          <div class="col-6 my-3">
-            <label for="role">User Role</label>
-            <select class="form-control" name="" id="role">
-              <option disabled selected>select</option>
-              <option value="ADMIN">ADMIN</option>
-              <option value="MANAGER">MANAGER</option>
-              <option value="SALES">SALES</option>
-            </select>
-          </div>
-          <div class="col-6 my-3">
-            <label for="shop">Shop Referance</label>
-            <select class="form-control" name="" id="shop">
-              <option  disabled selected>Select</option>
-              <option value="SHOP1">SHOP1</option>
-              <option value="SHOP2">SHOP2</option>
-              <option value="SHOP3">SHOP3</option>
-            </select>
-          </div>
+          
   
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

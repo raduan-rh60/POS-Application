@@ -6,6 +6,7 @@ import {
 import {
   HttpClient,
   provideHttpClient,
+  withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { routes } from './app.routes';
@@ -41,7 +42,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideClientHydration(),
     provideAnimationsAsync(),
-
+    provideHttpClient(withFetch()),
 
     importProvidersFrom(
       FormsModule,
@@ -50,5 +51,6 @@ export const appConfig: ApplicationConfig = {
       TablerIconsModule.pick(TablerIcons),
       NgScrollbarModule,
     ),
+    
   ],
 };

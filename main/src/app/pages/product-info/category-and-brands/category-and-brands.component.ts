@@ -5,6 +5,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
+import { CategoryService } from './service/category.service';
+
+export interface CategoryModel{
+  id:number;
+  name:string;
+  productCount:number;
+}
+export interface BrandModel{
+  id:number;
+  name:string;
+  productCount:string;
+}
 
 @Component({
   selector: 'app-category-and-brands',
@@ -14,23 +26,33 @@ import { TableModule } from 'primeng/table';
   styleUrl: './category-and-brands.component.scss'
 })
 export class CategoryAndBrandsComponent implements OnInit {
-  constructor() {}
+  constructor(private catService:CategoryService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.showAllCat()
+  }
 
   catDialogue = false;
 
   categoryDialogue() {
     this.catDialogue = !this.catDialogue;
   }
-  catData:any;
+  catData:CategoryModel[]=[];
 
 
 
   branDialog = false;
 
   brandDialogue() {
-    this.catDialogue = !this.catDialogue;
+    this.branDialog = !this.branDialog;
   }
   brandData:any;
+
+  // Category Service part=================================
+  public showAllCat(){
+    this.catService.getAllCat().subscribe((res:CategoryModel[])=>{
+      this.catData=res;
+      console.log(this.catData)
+    })
+  }
 }
