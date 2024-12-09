@@ -3,6 +3,7 @@ package com.project.PointOfSale.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "product")
 public class Product {
     @Id
@@ -19,6 +21,11 @@ public class Product {
     private int stock;
     private double purchasePrice;
     private double price;
+
+
+    @Lob
+    @Column(length = 100000)
+    private byte[] image;
 
 //    private int category_id;
     @ManyToOne(cascade = CascadeType.ALL)

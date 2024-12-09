@@ -4,8 +4,11 @@ import com.project.PointOfSale.model.Product;
 import com.project.PointOfSale.repo.ProductRepo;
 import com.project.PointOfSale.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+@Service
 
 public class ProductServiceImpl implements ProductService {
 
@@ -21,4 +24,6 @@ public class ProductServiceImpl implements ProductService {
     public Product saveProduct(Product product) {
         return productRepo.save(product);
     }
+
+
 }
