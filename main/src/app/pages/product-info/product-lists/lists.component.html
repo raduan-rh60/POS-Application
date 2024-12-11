@@ -19,15 +19,15 @@
         </div>
 
         <div class="table-responsive mt-4">
-          <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
+          <p-table [value]="showingProduct" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
             <ng-template pTemplate="header">
                 <tr>
-                  <th>id</th>
                   <th>Product Image</th>
-                  <th pSortableColumn="ProductName">Name</th>
-                  <th pSortableColumn="ProductStock">Stock</th>
-                  <th pSortableColumn="PurchasePrice">Purchase</th>
-                  <th pSortableColumn="salingPrice">Sale</th>
+                  <th>id</th>
+                  <th pSortableColumn="name">Name</th>
+                  <th pSortableColumn="stock">Stock</th>
+                  <th pSortableColumn="purchasePrice">Purchase</th>
+                  <th pSortableColumn="price">Sale</th>
                   <th pSortableColumn="category">Category</th>
                   <th pSortableColumn="brand">Brand</th>
                   <th >Action</th>
@@ -38,26 +38,24 @@
                 <tr>
                     <td>
                       <img
-                  [src]= dataSource.imagePath
-                  alt="users"
+                  [src]= "'data:image/png;base64,' + dataSource.image"
+                  alt="Product image"
                   width="48"
                   class="rounded"
                 /></td>
-                    <td>{{ dataSource.productId }}</td>
-                    <td>{{ dataSource.pName }}</td>
-                    <td>{{ dataSource.sQuantity }}</td>
-                    <td>{{ dataSource.productPrice}}</td>
-                    <td>{{ dataSource.paidPrice }}</td>
-                    <td>{{ dataSource.duePrice }}</td>
-                    <td>{{ dataSource.customerName }}</td>
-                    <td>{{ dataSource.saleDate }}</td>
-                    <td>{{ dataSource.saleTime }}</td>
-                    <td>{{ dataSource.shopeReferance }}</td>
+                    <td>{{ dataSource.id }}</td>
+                    <td>{{ dataSource.name }}</td>
+                    <td>{{ dataSource.stock }}</td>
+                    <td>{{ dataSource.purchasePrice}}</td>
+                    <td>{{ dataSource.price }}</td>
+                    <td>{{ dataSource.category }}</td>
+                    <td>{{ dataSource.brand }}</td>
+                  
                     <td><span
-                      ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
+                      ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary" (click)="showEditDialogue(dataSource)">
                           <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button mat-icon-button color="warn">
+                        <button mat-icon-button color="warn" (click)="delete(dataSource.id)">
                           <i class="bi bi-trash"></i>
                         </button></span
                       ></span
@@ -80,13 +78,62 @@
       <div class="row py-5">
         <div class="col-6 ">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInputBrand" name="name" formControlName="name">
-            <label for="floatingInputBrand">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" >
+            <label for="name">Product name</label>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="stock" name="stock" [(ngModel)]="product.stock" >
+            <label for="stock">Product stock</label>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="purchase" name="purchasePrice" [(ngModel)]="product.purchasePrice" >
+            <label for="purchase">Product purchasePrice</label>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="price" name="price" [(ngModel)]="product.price" >
+            <label for="price">Product price</label>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <input type="file" class="form-control" id="imageFile" (change)="onFileSelected($event)" >
+            <label for="imageFile">Product image</label>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <label for="category">Select Category</label>
+           <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
+            @for (item of categories; track $index) {
+              <option value="{{item.id}}">{{item.name}}</option>
+            }
+           </select>
+          </div>
+        </div>
+        <div class="col-6 ">
+          <div class="form-floating mb-3">
+            <label for="brand">Select Brand</label>
+            <select id="brand" name="brand" class="form-control" [(ngModel)]="product.brand">
+
+              @for (item of brands; track $index) {
+                <option value="{{item.id}}">{{item.name}}</option>
+              }
+             </select>
           </div>
         </div>
 
-      <div class="col-6 text-center mt-1 ">
-        <button type="submit" mat-raised-button color="primary">Add</button>
+      <div class="text-center mt-1 ">
+        @if(editButtonShow){
+          <button type="submit" mat-raised-button color="primary" (click)="updateProduct()">Update</button>
+        }@else {
+        <button type="submit" mat-raised-button color="primary" (click)="saveProduct()">Add</button>
+        }
       </div>
       </div>
     </form>

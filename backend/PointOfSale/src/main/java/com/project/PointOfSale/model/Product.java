@@ -28,13 +28,13 @@ public class Product {
     private byte[] image;
 
 //    private int category_id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
     @JsonIgnoreProperties("products")
     private Category category;
 
 //    private int brand_id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "brand_id",nullable = true)
     @JsonIgnoreProperties("products")
     private Brand brand;

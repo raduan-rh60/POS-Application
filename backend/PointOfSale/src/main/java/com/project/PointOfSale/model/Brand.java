@@ -19,7 +19,7 @@ public class Brand {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnoreProperties("brand")
     private List<Product> products;
 
