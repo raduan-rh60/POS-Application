@@ -87,6 +87,9 @@ public class ProductServiceImpl implements ProductService {
         product.setBrand(brand);
 
 
+
+
+
         return productRepo.save(product);
     }
 

@@ -28,13 +28,14 @@ public class ProductController {
 
     @PostMapping("save")
     public Product saveProduct( @RequestBody ProductDTO productDTO) {
-        System.out.println(productDTO);
+
        return productService.saveProduct(productDTO);
     }
 
     @CrossOrigin(value = "*")
     @PutMapping("edit/{id}")
     public Product editProduct(@RequestBody ProductDTO productDTO, @PathVariable long id){
+        System.out.println(productDTO);
        return this.productService.editProduct(productDTO,id);
     }
 
