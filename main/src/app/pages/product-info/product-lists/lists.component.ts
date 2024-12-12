@@ -15,15 +15,16 @@ import {
 } from '../category-and-brands/category-and-brands.component';
 
 export interface Product {
-  id?: string;
+  id: number;
   name: string;
   stock: string;
   purchasePrice: number;
   price: number;
-  category: string;
-  brand: string;
-  image?:any
+  category: number;
+  brand: number;
+  image?:string;
 }
+
 
 @Component({
   selector: 'app-product-lists',
@@ -43,14 +44,14 @@ export interface Product {
 export class AppProductListsComponent implements OnInit {
   showingProduct:Product[]=[];
   product: Product= {
-    id:'',
+    id:0,
     name: '',
     stock: '',
     purchasePrice: 0,
     price: 0,
     image: '',
-    category: '',
-    brand: ''
+    category: 0,
+    brand: 0
   };
 
   categories: CategoryModel[] = [];
@@ -112,15 +113,15 @@ export class AppProductListsComponent implements OnInit {
   if(res!=null){
     this.addSuccess=true;
     this.product={
-   
+      id:0,
       name: '',
       stock: '',
       purchasePrice: 0,
       price: 0,
       image: '',
-      category: '',
-      brand: ''
-    }
+      category: 0,
+      brand:  0
+      }
   }else{
     this.addError=false;
   }
@@ -159,6 +160,7 @@ export class AppProductListsComponent implements OnInit {
   editButtonShow:boolean=false;
   // EditProduct==========================
   public showEditDialogue(row:Product){
+    console.log(row);
     this.productDialog = !this.productDialog;
       this.product.id=row.id;
       this.product.name= row.name;
@@ -168,6 +170,7 @@ export class AppProductListsComponent implements OnInit {
       this.product.category= row.category;
       this.product.brand= row.brand
       this.editButtonShow = true;
+
   }
 
   public updateProduct(){
