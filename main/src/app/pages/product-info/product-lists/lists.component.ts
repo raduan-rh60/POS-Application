@@ -17,7 +17,7 @@ import {
 export interface Product {
   id: number;
   name: string;
-  stock: string;
+  stock: number;
   purchasePrice: number;
   price: number;
   category: number;
@@ -46,7 +46,7 @@ export class AppProductListsComponent implements OnInit {
   product: Product= {
     id:0,
     name: '',
-    stock: '',
+    stock: 0,
     purchasePrice: 0,
     price: 0,
     image: '',
@@ -115,7 +115,7 @@ export class AppProductListsComponent implements OnInit {
     this.product={
       id:0,
       name: '',
-      stock: '',
+      stock: 0,
       purchasePrice: 0,
       price: 0,
       image: '',
@@ -148,7 +148,7 @@ export class AppProductListsComponent implements OnInit {
     })
   }
 
-  
+
   productDialog: boolean = false;
   productDialogOpen() {
     if(this.editButtonShow){
@@ -182,5 +182,5 @@ export class AppProductListsComponent implements OnInit {
       }
     })
   }
-  
+
 }
