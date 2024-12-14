@@ -14,6 +14,7 @@ import {ProductService} from "../../product-info/product-lists/service/product.s
 import {CategoryService} from "../../product-info/category-and-brands/service/category.service";
 import {CategoryModel} from "../../product-info/category-and-brands/category-and-brands.component";
 import {CartService} from "./service/cart.service";
+import { DialogModule } from 'primeng/dialog';
 
 export interface CartModel {
   id: number;
@@ -34,7 +35,7 @@ export interface CartModel {
     MatButtonModule,
     MatCardModule,
     MatInputModule,
-    MatCheckboxModule, FloatLabelModule,
+    MatCheckboxModule, FloatLabelModule, DialogModule
   ],
   templateUrl: './generate-sale.component.html',
   styleUrl: './generate-sale.component.scss'
@@ -53,9 +54,10 @@ export class GenerateSaleComponent implements OnInit {
     id: 0,
     name: "",
     price: 0,
-    quantity: 0,
+    quantity: 1,
     subtotal: 0,
   };
+
   cartList: CartModel[];
 
   constructor(private posService: PosServiceService, private categoryService: CategoryService, private productService: ProductService, private cartService: CartService) {
@@ -64,7 +66,7 @@ export class GenerateSaleComponent implements OnInit {
   ngOnInit(): void {
     this.categoryList();
     this.productList();
-    this.getaLlCart();
+    this.getAllCart();
   }
 
 
@@ -136,7 +138,7 @@ export class GenerateSaleComponent implements OnInit {
 
 
   // Cart Section =============================================
-  getaLlCart() {
+  getAllCart() {
     this.cartService.getAllCart().subscribe((res: CartModel[]) => {
       this.cartList = res;
     })
@@ -151,10 +153,11 @@ export class GenerateSaleComponent implements OnInit {
       this.addToCart.name = product.name;
       this.addToCart.price = product.price;
       this.addToCart.quantity = 1;
-      this.addToCart.subtotal = product.price * this.addToCart.quantity;
+     
+      
 
       this.cartService.addCart(this.addToCart).subscribe(res => {
-        this.getaLlCart();
+        this.getAllCart();
       });
     }
   }
@@ -162,11 +165,23 @@ export class GenerateSaleComponent implements OnInit {
   deleteCartProduct(id: number) {
     this.cartService.deleteCartItem(id).subscribe(res => {
       alert("Product removed successfully");
-      this.getaLlCart();
+      this.getAllCart();
     })
   }
 
   grandTotal(): number {
     return this.cartList.reduce((total, item) => total + item.subtotal, 0);
+  }
+
+  subtotal(cart:CartModel){
+
+    cart.subtotal=cart.price*cart.quantity;
+  }
+
+
+  // payement Dialogue
+  paymentDialogue=false;
+  paymentDailogueShow(){
+    this.paymentDialogue=!this.paymentDialogue;
   }
 }
