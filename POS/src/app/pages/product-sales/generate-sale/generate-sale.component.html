@@ -133,20 +133,20 @@
             appearance="outline"
             class="w-50"
             color="primary"
-            
+
           ><input matInput type="text"
           class="f-s-18 f-w-600 text-dark text-end"
           disabled
           [value]="grandTotal()+' BDT'"
-          
+
           />
-          
-        
+
+
           </mat-form-field>
             </div>
           <hr>
 
-          
+
 
 
         </div>
@@ -167,7 +167,7 @@ header="Payment "
 [style]="{ width: '50vw' }"
 >
 <div class="row justify-content-center mx-5 px-5">
- 
+
     <table class="table table-bordered table-responsive mx-5">
       <tr>
         <th>Paying Item:</th>
@@ -185,22 +185,34 @@ header="Payment "
         <th>Amount After Delivery cost:</th>
         <td> 1250</td>
       </tr>
-     
+
     </table>
   </div>
 
 <form>
   <div class="row py-5">
-    <div class="col-6 ">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInputCat" name="name" formControlName="name">
-        <label for="floatingInputCat">Category Name</label>
+    <div class="col-6">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+        Apply Discount
+      </mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <input matInput placeholder="discount %" name="discount" />
+      </mat-form-field>
       </div>
-    </div>
+      <div class="col-6">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+        Order Type
+      </mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-select placeholder="Select" name="orderType" >
+         
+            <mat-option [value]=" 1 ">Generel</mat-option>
+            <mat-option [value]=" 2 ">Online</mat-option>
+        </mat-select>
+      </mat-form-field>
+     
 
-  <div class="col-6 text-center mt-1 ">
-    <button type="submit" mat-raised-button color="primary">Add</button>
-  </div>
+    </div>
   </div>
 </form>
 
