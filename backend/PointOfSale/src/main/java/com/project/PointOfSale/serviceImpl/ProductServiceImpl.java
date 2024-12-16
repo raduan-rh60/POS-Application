@@ -134,7 +134,9 @@ public class ProductServiceImpl implements ProductService {
         return product.stream().map(product1 -> modelMapper.map(product1, ProductPosDTO.class)).collect(Collectors.toList());
     }
 
-
+    public void updateProductQuantity(Long productId, int newStock) {
+        productRepo.updateProductQuantity(productId, newStock);
+    }
 
 
 }

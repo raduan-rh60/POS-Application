@@ -1,5 +1,6 @@
 package com.project.PointOfSale.serviceImpl;
 
+import com.project.PointOfSale.enums.CartStatus;
 import com.project.PointOfSale.model.Cart;
 import com.project.PointOfSale.repo.CartRepo;
 import com.project.PointOfSale.services.CartService;
@@ -15,7 +16,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<Cart> listOfCartProduct() {
-        return cartRepo.findAll();
+        return cartRepo.findAllByCartStatus(CartStatus.PENDING);
     }
 
     @Override
@@ -41,5 +42,10 @@ public class CartServiceImpl implements CartService {
     public void deleteCart(long id) {
         cartRepo.deleteById(id);
 
+    }
+
+    @Override
+    public int updateCartStatus(CartStatus cartStatus) {
+        return this.cartRepo.updateCartStatusForPendingOrders(cartStatus);
     }
 }

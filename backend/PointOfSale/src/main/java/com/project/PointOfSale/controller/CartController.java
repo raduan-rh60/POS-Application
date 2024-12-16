@@ -1,5 +1,6 @@
 package com.project.PointOfSale.controller;
 
+import com.project.PointOfSale.enums.CartStatus;
 import com.project.PointOfSale.model.Cart;
 import com.project.PointOfSale.serviceImpl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,18 @@ public class CartController {
         return new ResponseEntity<String>("Cart Cleared", HttpStatus.OK);
     }
 
+    @CrossOrigin
+    @PatchMapping("status")
+    public ResponseEntity<String> updateOrderTypeForPendingOrders(@RequestParam String cartStatus) {
+        // Update the orderType for all orders with orderType 'PENDING'
+
+        CartStatus status = CartStatus.valueOf(cartStatus);
+       int updatedCount = cartService.updateCartStatus(status);
+
+        if (updatedCount > 0) {
+            return ResponseEntity.ok("Successfully updated " + updatedCount + " orders.");
+        } else {
+            return ResponseEntity.status(400).body("No orders were updated. Please check if there are orders with 'PENDING' status.");
+        }
+    }
 }

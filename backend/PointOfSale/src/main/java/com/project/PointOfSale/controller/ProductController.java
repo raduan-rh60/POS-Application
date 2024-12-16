@@ -60,5 +60,10 @@ public class ProductController {
         return productService.ProductByID(id);
     }
 
+    @PatchMapping("/update-stock/{id}")
+    public void updateProductStock(@PathVariable Long id, @RequestParam int stock) {
+        productService.updateProductQuantity(id, stock);
+    }
+
 
 }

@@ -31,4 +31,7 @@ export class CartService {
   public clearCart(){
     return this.http.delete(`${this.baseUrl}/clear`);
   }
+  public updateStatus(status:string){
+    return this.http.patch(`${this.baseUrl}/status?cartStatus=${status}`,{},{responseType:"text"});
+  }
 }

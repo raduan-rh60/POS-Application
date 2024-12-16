@@ -14,7 +14,11 @@ import {ProductService} from "../../product-info/product-lists/service/product.s
 import {CategoryService} from "../../product-info/category-and-brands/service/category.service";
 import {CategoryModel} from "../../product-info/category-and-brands/category-and-brands.component";
 import {CartService} from "./service/cart.service";
-import { DialogModule } from 'primeng/dialog';
+import {DialogModule} from 'primeng/dialog';
+import {DecimalPipe} from "@angular/common";
+import {MatDivider} from "@angular/material/divider";
+import {OrderService} from "./service/order.service";
+import {MessageService} from "primeng/api";
 
 export interface CartModel {
   id: number;
@@ -22,6 +26,21 @@ export interface CartModel {
   quantity: number;
   price: number;
   subtotal: number;
+  cartStatus: string;
+  grandTotal: number;
+  productId: number;
+}
+
+export interface OrderModel {
+  saleDate: Date;
+  customerName: string;
+  customerAddress?: string;
+  customerPhone: string;
+  note: string;
+  totalAmount: number;
+  orderType: string;
+  orderStatus?: string;
+  transactionType: string;
 }
 
 @Component({
@@ -35,10 +54,11 @@ export interface CartModel {
     MatButtonModule,
     MatCardModule,
     MatInputModule,
-    MatCheckboxModule, FloatLabelModule, DialogModule
+    MatCheckboxModule, FloatLabelModule, DialogModule, DecimalPipe, MatDivider
   ],
   templateUrl: './generate-sale.component.html',
-  styleUrl: './generate-sale.component.scss'
+  styleUrl: './generate-sale.component.scss',
+  providers: [MessageService]
 })
 export class GenerateSaleComponent implements OnInit {
   id: number;
@@ -56,11 +76,33 @@ export class GenerateSaleComponent implements OnInit {
     price: 0,
     quantity: 1,
     subtotal: 0,
+    cartStatus: "PENDING",
+    grandTotal: 0,
+    productId: 0,
+
   };
+
+  // for order popup option.
+  orderOption: OrderModel = {
+    saleDate: new Date(),
+    customerName: "",
+    customerAddress: "",
+    customerPhone: "",
+    note: "",
+    totalAmount: 0,
+    orderType: "",
+    orderStatus: "COMPLETE",
+    transactionType: "",
+  }
 
   cartList: CartModel[];
 
-  constructor(private posService: PosServiceService, private categoryService: CategoryService, private productService: ProductService, private cartService: CartService) {
+  constructor(private posService: PosServiceService,
+              private categoryService: CategoryService,
+              private productService: ProductService,
+              private cartService: CartService,
+              private orderService: OrderService,
+              private messageService: MessageService,) {
   }
 
   ngOnInit(): void {
@@ -150,38 +192,132 @@ export class GenerateSaleComponent implements OnInit {
       alert("product not available");
     } else {
 
+
+      this.addToCart.productId = product.id;
       this.addToCart.name = product.name;
       this.addToCart.price = product.price;
       this.addToCart.quantity = 1;
-     
-      
+      this.addToCart.subtotal = product.price * this.addToCart.quantity;
 
+      console.log(this.addToCart);
       this.cartService.addCart(this.addToCart).subscribe(res => {
         this.getAllCart();
       });
+
+      
     }
   }
 
   deleteCartProduct(id: number) {
+
     this.cartService.deleteCartItem(id).subscribe(res => {
       alert("Product removed successfully");
       this.getAllCart();
     })
   }
 
+
+  updateCart(cart: CartModel) {
+    console.log(cart)
+    this.cartService.editCart(cart).subscribe(res => {
+
+    })
+  }
+
+
+  discount: number = 0;
+  discountGrandTotal: number = 0;
+  deliveryCharge: number = 0;
+  finalPrice: number = 0;
+
   grandTotal(): number {
-    return this.cartList.reduce((total, item) => total + item.subtotal, 0);
+    this.addToCart.grandTotal = this.cartList.reduce((total, item) => total + item.subtotal, 0);
+    this.discountGrandTotal = this.addToCart.grandTotal;
+    this.finalPrice = this.discountGrandTotal;
+    return this.addToCart.grandTotal;
   }
 
-  subtotal(cart:CartModel){
+  subtotal(cart: CartModel) {
+    cart.subtotal = cart.price * cart.quantity;
+  }
 
-    cart.subtotal=cart.price*cart.quantity;
+  totalQuantity(): number {
+    return this.cartList.reduce((total, item) => total + item.quantity, 0);
+  }
+
+  applyDiscount(): number {
+    this.discountGrandTotal = this.addToCart.grandTotal * (1 - (this.discount / 100));
+    return this.discountGrandTotal;
+  }
+
+  applyDelivercharge() {
+    this.finalPrice = this.discountGrandTotal + this.deliveryCharge
+    return this.finalPrice;
   }
 
 
-  // payement Dialogue
-  paymentDialogue=false;
-  paymentDailogueShow(){
-    this.paymentDialogue=!this.paymentDialogue;
+  // payment Dialogue
+  paymentDialogue = false;
+
+  paymentDialogueShow() {
+    this.paymentDialogue = !this.paymentDialogue;
+  }
+
+  deliveryArea: string;
+
+  deliveryChargeFunction() {
+    if (this.deliveryArea == "Dhaka") {
+      this.deliveryCharge = 50;
+    } else if (this.deliveryArea == "Free") {
+      this.deliveryCharge = 0;
+    } else {
+      this.deliveryCharge = 100;
+    }
+  }
+
+
+//   order process funstions
+  paid() {
+    this.orderOption.totalAmount = this.finalPrice;
+  }
+
+  order() {
+    console.log(this.orderOption);
+    // Step 1: Save the order
+    this.orderService.saveOrder(this.orderOption).subscribe(res => {
+      if (res != null) {
+        // Step 2: Loop through each product in the cart and update stock
+        this.cartService.getAllCart().subscribe(cartItems => {
+          cartItems.forEach(item => {
+
+            // For each item we will search each product
+            this.productService.getProductById(item.productId).subscribe(product => {
+
+              // For each cart item, calculate the new stock
+              const updatedStock = product.stock - item.quantity;
+              // Step 3: Update the stock for each product in the cart
+              if (updatedStock >= 0) {
+                this.productService.updateStock(product.id, updatedStock).subscribe(stockRes => {
+                  console.log(`Updated stock for product ${product.id}: ${updatedStock}`);
+                }, error => {
+                  console.error(`Error updating stock for product ${product.id}`, error);
+                });
+              } else {
+                console.error(`Not enough stock for product ${product.id}`);
+                // Optionally, you could handle the error here (e.g., show a message to the user)
+              }
+            })
+
+          });
+
+          // Step 4: Update the cart status to "ORDERED"
+          this.cartService.updateStatus("ORDERED").subscribe(updateRes => {
+            // Step 5: Refresh the cart after status update
+            this.getAllCart();
+            this.paymentDialogue = false; // Close the payment dialog
+          });
+        });
+      }
+    });
   }
 }

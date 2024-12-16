@@ -16,7 +16,7 @@ public class ProductReturn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String reason;
     private Date date;
 

@@ -31,7 +31,7 @@ export class ProductService {
   // pos service ==================
 
   public getPosProductsByCategory(id:number):Observable<Product[]>{
-   
+
     return this.http.get<Product[]>(`${this.baseUrl}/pos/category?id=${id}`);
   }
 
@@ -42,5 +42,10 @@ export class ProductService {
 
   public getProductById(id:number):Observable<Product>{
     return this.http.get<Product>(`${this.baseUrl}/${id}`);
+  }
+  public updateStock(id:number, stock:number){
+    return this.http.patch(`${this.baseUrl}/update-stock/${id}?stock=${stock}`, {},{responseType:"text"});
+
+
   }
 }

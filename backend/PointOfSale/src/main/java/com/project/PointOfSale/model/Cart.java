@@ -1,5 +1,6 @@
 package com.project.PointOfSale.model;
 
+import com.project.PointOfSale.enums.CartStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +19,12 @@ public class Cart {
     private int quantity;
     private double price;
     private double subtotal;
+
+    @Enumerated(EnumType.STRING)
+    private CartStatus cartStatus;
+
+    private long productId;
+
+
 
 }
