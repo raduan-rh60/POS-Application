@@ -19,6 +19,7 @@ import {DecimalPipe} from "@angular/common";
 import {MatDivider} from "@angular/material/divider";
 import {OrderService} from "./service/order.service";
 import {MessageService} from "primeng/api";
+import {Router} from "@angular/router";
 
 export interface CartModel {
   id: number;
@@ -29,9 +30,11 @@ export interface CartModel {
   cartStatus: string;
   grandTotal: number;
   productId: number;
+  subTotalPurchasePrice: number;
 }
 
 export interface OrderModel {
+  id?:number
   saleDate: Date;
   customerName: string;
   customerAddress?: string;
@@ -41,6 +44,7 @@ export interface OrderModel {
   orderType: string;
   orderStatus?: string;
   transactionType: string;
+  totalPurchasePrice: number;
 }
 
 @Component({
@@ -56,11 +60,11 @@ export interface OrderModel {
     MatInputModule,
     MatCheckboxModule, FloatLabelModule, DialogModule, DecimalPipe, MatDivider
   ],
-  templateUrl: './generate-sale.component.html',
-  styleUrl: './generate-sale.component.scss',
+  templateUrl: './pos.component.html',
+  styleUrl: './pos.component.scss',
   providers: [MessageService]
 })
-export class GenerateSaleComponent implements OnInit {
+export class PosComponent implements OnInit {
   id: number;
   name: string;
   categoryId: number;
@@ -79,11 +83,13 @@ export class GenerateSaleComponent implements OnInit {
     cartStatus: "PENDING",
     grandTotal: 0,
     productId: 0,
+    subTotalPurchasePrice: 0,
 
   };
 
   // for order popup option.
   orderOption: OrderModel = {
+    id:0,
     saleDate: new Date(),
     customerName: "",
     customerAddress: "",
@@ -93,6 +99,7 @@ export class GenerateSaleComponent implements OnInit {
     orderType: "",
     orderStatus: "COMPLETE",
     transactionType: "",
+    totalPurchasePrice: 0,
   }
 
   cartList: CartModel[];
@@ -102,7 +109,7 @@ export class GenerateSaleComponent implements OnInit {
               private productService: ProductService,
               private cartService: CartService,
               private orderService: OrderService,
-              private messageService: MessageService,) {
+              private router:Router,) {
   }
 
   ngOnInit(): void {
@@ -198,13 +205,13 @@ export class GenerateSaleComponent implements OnInit {
       this.addToCart.price = product.price;
       this.addToCart.quantity = 1;
       this.addToCart.subtotal = product.price * this.addToCart.quantity;
+      this.addToCart.subTotalPurchasePrice = product.purchasePrice * this.addToCart.quantity;
 
-      console.log(this.addToCart);
       this.cartService.addCart(this.addToCart).subscribe(res => {
         this.getAllCart();
       });
 
-      
+
     }
   }
 
@@ -231,6 +238,7 @@ export class GenerateSaleComponent implements OnInit {
   finalPrice: number = 0;
 
   grandTotal(): number {
+    this.addToCart.subTotalPurchasePrice = this.cartList.reduce((total, item) => total + item.subTotalPurchasePrice, 0)
     this.addToCart.grandTotal = this.cartList.reduce((total, item) => total + item.subtotal, 0);
     this.discountGrandTotal = this.addToCart.grandTotal;
     this.finalPrice = this.discountGrandTotal;
@@ -239,9 +247,11 @@ export class GenerateSaleComponent implements OnInit {
 
   subtotal(cart: CartModel) {
     cart.subtotal = cart.price * cart.quantity;
+    cart.subTotalPurchasePrice = cart.subTotalPurchasePrice * cart.quantity;
   }
 
   totalQuantity(): number {
+
     return this.cartList.reduce((total, item) => total + item.quantity, 0);
   }
 
@@ -278,13 +288,15 @@ export class GenerateSaleComponent implements OnInit {
 
 //   order process funstions
   paid() {
+    this.orderOption.totalPurchasePrice = this.addToCart.subTotalPurchasePrice;
     this.orderOption.totalAmount = this.finalPrice;
   }
 
   order() {
-    console.log(this.orderOption);
     // Step 1: Save the order
+    console.log(this.orderOption);
     this.orderService.saveOrder(this.orderOption).subscribe(res => {
+      console.log(res);
       if (res != null) {
         // Step 2: Loop through each product in the cart and update stock
         this.cartService.getAllCart().subscribe(cartItems => {
@@ -317,6 +329,8 @@ export class GenerateSaleComponent implements OnInit {
             this.paymentDialogue = false; // Close the payment dialog
           });
         });
+        this.orderOption = res;
+        this.router.navigate(['sales/order-details/',this.orderOption.id]);
       }
     });
   }

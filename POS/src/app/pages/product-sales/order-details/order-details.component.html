@@ -1,51 +1,110 @@
 
-<mat-card class="cardWithShadow">
+<div id="print-section">
+  <mat-card class="cardWithShadow">
     <mat-card-content>
       <mat-card-title class="text-center">Order Details</mat-card-title>
-     <div class="row justify-content-center">
-     <div class="text-center">
-      <img
-      src="../../../../assets/images/profile/user-1.jpg"
-      alt="users"
-      style="width: 40px;"
-    /> 
-     </div>
-      <table class="table table-borderless w-25">
-        <tr>
-            <td>Address:</td>
-            <td>12/5/2 Wari</td>
-        </tr>
-        <tr>
-            <td >Phone:</td>
-            <td>12/5/2 Wari</td>
-        </tr>
-        <tr>
-            <td >Details:</td>
-            <td>12/5/2 Wari</td>
-        </tr>
-      </table>
-     </div>
+      <div class="row ">
+        <div class="text-center">
+          <img
+            src="../../../../assets/images/logos/logo.png"
+            alt="users"
+            style="width: 70px; margin:10px 0px"
+          />
+        </div>
+        <table class="table table-responsive w-75 f-s-16 my-3 ms-4" >
+          <tr>
+            <td class="w-50"><strong>Address:</strong> Holding: 53 (1st floor), Road: 04 Block: G,Banasree , Dhaka 1219.</td>
+          </tr>
+          <tr>
+            <td ><strong>Phone:</strong> +8801521359221</td>
+          </tr>
+          <tr>
+            <td ><strong>Email:</strong> {{'raduanlhaque@gmail.com'}}</td>
+          </tr>
+        </table>
+      </div>
     </mat-card-content>
   </mat-card>
   <mat-card class="cardWithShadow">
     <mat-card-content>
-   
-     <div class="row justify-content-center">
-       
-      <table class="table table-borderless w-75">
-       <thead>
-        <th>#</th>
-        <th class="w-50">Product</th>
+
+      <table class="table table-info my-4">
+        <tr>
+          <th>Customer Name:</th>
+          <td>{{orderDetails.customerName}}</td>
+        </tr>
+        <tr>
+          <th>Customer Phone:</th>
+          <td>{{orderDetails.customerPhone}}</td>
+        </tr>
+        <tr>
+          <th>Customer Address:</th>
+          <td>{{orderDetails.customerAddress}}</td>
+        </tr>
+        <tr>
+          <th>Order Status:</th>
+          <td>{{orderDetails.orderStatus}}</td>
+        </tr>
+        <tr>
+          <th>Order Type:</th>
+          <td>{{orderDetails.orderType}}</td>
+        </tr>
+        <tr>
+          <th>Sale Date:</th>
+          <td>{{orderDetails.saleDate}}</td>
+        </tr>
+        <tr>
+          <th>Transaction Type:</th>
+          <td>{{orderDetails.transactionType}}</td>
+        </tr>
+        <tr>
+          <th>Note:</th>
+          <td>{{orderDetails.note}}</td>
+        </tr>
+
+      </table>
+
+      <table class="table table-bordered text-end">
+
+        <thead>
+        <th class="w-50 text-start">Product</th>
         <th >Quantity</th>
         <th >Price</th>
         <th >Net Amount</th>
-       </thead>
-       <tbody>
+        </thead>
+        <tbody>
+          @for (item of orderDetails.orderItems; track $index) {
+            <tr>
+              <td class="w-50 text-start">{{item.name}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.subtotal}}</td>
+            </tr>
+          }
+
         <tr>
-            
+          <td>Total(After Discount):</td>
+          <td colspan="3">{{orderDetails.totalAmount}}</td>
         </tr>
-       </tbody>
+        <tr>
+          <td>Total Received:</td>
+          <td colspan="3">{{orderDetails.totalAmount}}</td>
+        </tr>
+
+        </tbody>
       </table>
-     </div>
+      <div class="row justify-content-evenly">
+        <div class="col-4 text-center ">
+          <button mat-raised-button color="accent" class="w-50">Order List</button>
+        </div>
+        <div class="col-4 text-center">
+          <button mat-raised-button color="accent" class="w-50" (click)="printSection()">Print</button>
+        </div>
+        <div class="col-4 text-center">
+          <button mat-raised-button color="accent" class="w-50">New Order</button>
+        </div>
+      </div>
+
     </mat-card-content>
   </mat-card>
+</div>

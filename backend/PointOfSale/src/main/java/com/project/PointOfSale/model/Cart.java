@@ -19,6 +19,7 @@ public class Cart {
     private int quantity;
     private double price;
     private double subtotal;
+    private double subTotalPurchasePrice;
 
     @Enumerated(EnumType.STRING)
     private CartStatus cartStatus;

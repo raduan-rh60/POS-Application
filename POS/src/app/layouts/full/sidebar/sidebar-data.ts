@@ -29,9 +29,14 @@ export const admin: NavItem[] = [
     route: '/sales/pos',
   },
   {
-    displayName: 'Sales',
+    displayName: 'General Sales',
     iconName: 'solar:danger-circle-line-duotone',
-    route: '/sales/all-sales',
+    route: '/sales/general-sales',
+  },
+  {
+    displayName: 'Online Sales',
+    iconName: 'solar:ticket-sale-broken',
+    route: '/sales/online-sales',
   },
   {
     displayName: 'Returns',
@@ -69,8 +74,8 @@ export const admin: NavItem[] = [
     iconName: 'solar:clipboard-list-linear',
     route: '/product/category-brands',
   },
- 
- 
+
+
   {
     navCap: 'People',
     divider: true
@@ -114,7 +119,7 @@ export const admin: NavItem[] = [
     iconName: 'solar:user-plus-rounded-line-duotone',
     route: '',
   },
- 
+
 ];
 export const employee: NavItem[] = [
   {
@@ -143,7 +148,7 @@ export const employee: NavItem[] = [
   {
     displayName: 'Sales',
     iconName: 'solar:danger-circle-line-duotone',
-    route: '/sales/all-sales',
+    route: '/sales/general-sales',
   },
   {
     displayName: 'Returns',
@@ -229,5 +234,5 @@ export const employee: NavItem[] = [
     iconName: 'solar:user-plus-rounded-line-duotone',
     route: '',
   }
- 
+
 ];

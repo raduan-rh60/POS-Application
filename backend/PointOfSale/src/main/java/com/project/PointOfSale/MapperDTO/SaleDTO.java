@@ -18,6 +18,8 @@ public class SaleDTO {
     private String customerPhone;
     private String note;
     private double totalAmount;
+
+    private double totalPurchasePrice;
     
     private String transactionType;
 

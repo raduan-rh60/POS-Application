@@ -2,6 +2,8 @@ package com.project.PointOfSale.serviceImpl;
 
 import com.project.PointOfSale.MapperDTO.SaleDTO;
 import com.project.PointOfSale.enums.CartStatus;
+import com.project.PointOfSale.enums.OrderStatus;
+import com.project.PointOfSale.enums.OrderType;
 import com.project.PointOfSale.model.Cart;
 import com.project.PointOfSale.model.Sale;
 import com.project.PointOfSale.repo.CartRepo;
@@ -42,6 +44,7 @@ public class SaleServiceImpl implements SaleService {
         sale.setOrderStatus(saleDTO.getOrderStatus());
         sale.setTotalAmount(saleDTO.getTotalAmount());
         sale.setTransactionType(saleDTO.getTransactionType());
+        sale.setTotalPurchasePrice(saleDTO.getTotalPurchasePrice());
 
         sale.setOrderItems(cartItems);
 
@@ -58,5 +61,16 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public Sale getSaleById(long id) {
         return saleRepo.findById(id).get();
+    }
+
+    @Override
+    public List<Sale> getAllSalesByOrderType(String oderType) {
+        OrderType enumValue = OrderType.valueOf(oderType);
+        System.out.println(enumValue);
+        return saleRepo.findAllByOrderType(enumValue);
+    }
+
+    public void delete(long id){
+        saleRepo.deleteById(id);
     }
 }

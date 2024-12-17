@@ -8,6 +8,7 @@ public class ProductPosDTO {
     private long id;
     private String name;
     private int stock;
+    private double purchasePrice;
     private double price;
     private String category;
     private String brand;

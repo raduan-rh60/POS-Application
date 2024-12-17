@@ -26,6 +26,7 @@ public class Sale {
     private double totalAmount;
     private String note;
     private String transactionType;
+    private double totalPurchasePrice;
 
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
