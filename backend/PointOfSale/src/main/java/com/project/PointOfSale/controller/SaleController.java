@@ -25,4 +25,9 @@ public class SaleController {
     public Sale saveSale(@RequestBody SaleDTO saleDTO){
         return saleService.createSale(saleDTO);
     }
+
+    @GetMapping("{id}")
+    public Sale getSaleById(@PathVariable long id){
+        return saleService.getSaleById(id);
+    }
 }

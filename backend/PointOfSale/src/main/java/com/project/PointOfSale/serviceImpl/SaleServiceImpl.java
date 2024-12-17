@@ -54,4 +54,9 @@ public class SaleServiceImpl implements SaleService {
     public List<Sale> getAllSales() {
         return saleRepo.findAll();
     }
+
+    @Override
+    public Sale getSaleById(long id) {
+        return saleRepo.findById(id).get();
+    }
 }

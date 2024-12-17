@@ -8,4 +8,5 @@ import java.util.List;
 public interface SaleService {
     public Sale createSale(SaleDTO sale);
     public List<Sale> getAllSales();
+    Sale getSaleById(long id);
 }

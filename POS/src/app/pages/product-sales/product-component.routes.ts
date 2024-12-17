@@ -8,6 +8,7 @@ import { ReturnListComponent } from './return-list/return-list.component';
 import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 import { ProductDamageListComponent } from './product-damage-list/product-damage-list.component';
 import { ProductStockListComponent } from './product-stock-list/product-stock-list.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 export const ProductComponent: Routes = [
   {
@@ -37,6 +38,10 @@ export const ProductComponent: Routes = [
       {
         path: 'stock',
         component: ProductStockListComponent,
+      },
+      {
+        path: 'order-details/:id',
+        component: OrderDetailsComponent,
       },
     ],
   },

@@ -19,7 +19,7 @@
         </div>
 
         <div class="table-responsive mt-4">
-          <p-table [value]="showingProduct" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
+          <p-table [value]="showingProduct" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
             <ng-template pTemplate="header">
                 <tr>
                   <th>Product Image</th>
@@ -31,7 +31,6 @@
                   <th pSortableColumn="category">Category</th>
                   <th pSortableColumn="brand">Brand</th>
                   <th >Action</th>
-
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-dataSource>
