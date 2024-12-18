@@ -18,6 +18,7 @@ public class Cart {
     private String name;
     private int quantity;
     private double price;
+    private double purchasePrice;
     private double subtotal;
     private double subTotalPurchasePrice;
 
