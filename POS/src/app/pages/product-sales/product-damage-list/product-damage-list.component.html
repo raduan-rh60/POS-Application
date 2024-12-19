@@ -1,53 +1,181 @@
+
+
 <mat-card class="cardWithShadow theme-card">
-    <mat-card-header>
-      <mat-card-title class="m-b-0">Product Informaiton</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="b-t-1">
-      <div class="table-responsive">
-        <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
-          <ng-template pTemplate="header">
-              <tr>
-                <th>id</th>
-                <th>Product_id</th>
-                <th pSortableColumn="ProductName">Name</th>
-                <th pSortableColumn="ProductStock">quantity</th>
-                <th pSortableColumn="PurchasePrice">Purchase</th>
-                <th pSortableColumn="category">Category</th>
-                <th pSortableColumn="brand">Brand</th>
-                <th >Action</th>
-                  
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-dataSource>
-              <tr>
-                  <td>
-                    <img
-                [src]= dataSource.imagePath 
-                alt="users"
-                width="48"
-                class="rounded"
-              /></td>
-                  <td>{{ dataSource.productId }}</td>
-                  <td>{{ dataSource.pName }}</td>
-                  <td>{{ dataSource.sQuantity }}</td>
-                  <td>{{ dataSource.productPrice}}</td>
-                  <td>{{ dataSource.paidPrice }}</td>
-                  <td>{{ dataSource.duePrice }}</td>
-                  <td>{{ dataSource.customerName }}</td>
-                
-                  <td><span
-                    ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                      <button mat-icon-button color="warn">
-                        <i class="bi bi-trash"></i>
-                      </button></span
-                    ></span
-                  ></td>
-              </tr>
-          </ng-template>
-        </p-table>
+  <mat-card-content class="b-t-1">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Purchase Table
+        </mat-card-title>
       </div>
-    </mat-card-content>
-  </mat-card>
-  
+      <div class="col-md-6 text-end">
+        <button
+          mat-raised-button
+          class="bg-primary text-white"
+          (click)="purchaseDialogueShow()"
+        >
+          Add Purchase
+        </button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <p-table
+        [value]="damages"
+        sortField="price"
+        [sortOrder]="-1"
+        [tableStyle]="{ 'min-width': '60rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>id</th>
+            <th pSortableColumn="productName">Product Name<p-sortIcon field="productName"/></th>
+            <th >reason</th>
+            <th pSortableColumn="date">Date<p-sortIcon field="date"/></th>
+            <th >Time</th>
+            <th pSortableColumn="quantity">Quantity<p-sortIcon field="quantity"/></th>
+            <th pSortableColumn="productPrice">Product Price<p-sortIcon field="productPrice"/></th>
+            <th pSortableColumn="damageAmount">Damage Amount<p-sortIcon field="damageAmount"/></th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-damage>
+          <tr>
+            <td>{{ damage.id }}</td>
+            <td>{{ damage.productName }}</td>
+            <td>{{ damage.reason }}</td>
+            <td>{{ damage.date | date:'d-M-yy'}}</td>
+            <td>{{ damage.date | date:'h:mm a'}}</td>
+            <td>{{ damage.quantity}}</td>
+            <td>{{ damage.productPrice }} TK</td>
+            <td>{{ damage.damageAmount }} TK</td>
+            <!-- Format as currency -->
+            <td>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteDamage(damage.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Dialogue -->
+<p-dialog
+  header="Add New Purchase"
+  [modal]="true"
+  [(visible)]="damageDialogue"
+  [style]="{ width: '50vw' }"
+>
+  <form>
+    <div class="form-container">
+      <div class="row">
+        <div class="col-6">
+          <!-- Product Name -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+           Select Product
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            <mat-select
+              placeholder="Select"
+              name="productId"
+              [(ngModel)]="newDamage.productId"
+              (selectionChange)="searchByProductId()"
+            >
+              @for (item of productDemo; track $index) {
+                <mat-option [value]="item.id"> {{ item.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <!-- Product Name -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Damage Reason
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            <input
+              matInput
+              placeholder="Type reason"
+              list="nameList"
+              name="reason"
+              [(ngModel)]="newDamage.reason"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <!-- Quantity -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Quantity
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            <input
+              matInput
+              type="number"
+              placeholder="Enter Quantity"
+              name="quantity"
+              [(ngModel)]="newDamage.quantity"
+              (focusout)="onchangeRate(newDamage)"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <!-- Rate -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Product Price
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            
+            <input
+              matInput
+              type="number"
+              placeholder="Enter Rate"
+              name="productPrice"
+              [(ngModel)]="newDamage.productPrice"
+              readonly
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <!-- Sub Total (Calculated) -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Total Damage
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            
+            <input
+              matInput
+              [value]="newDamage.damageAmount"
+              placeholder="Total Damage"
+              name="damageAmount"
+              readonly
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="saveDamage()">
+            Add Damage
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  @if (addSuccess) {
+  <mat-card-title class="text-success text-center">
+    Damage Report Added Successful</mat-card-title
+  >
+  } @else if (addError){
+  <mat-card-title class="text-error text-center">
+    Something wrong</mat-card-title
+  >
+
+  }
+</p-dialog>

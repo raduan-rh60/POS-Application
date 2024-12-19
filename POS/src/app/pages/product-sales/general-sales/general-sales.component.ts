@@ -38,6 +38,9 @@ import {ShopData} from "../../company/users/users.component";
 })
 export class GeneralSalesComponent implements OnInit {
   generalSales: OrderData[]=[];
+  grandTotalSale:number;
+  grandTotalPurchase:number;
+  profit:number;
 
   constructor(private generalSaleService:OrderService) {}
 
@@ -48,16 +51,13 @@ export class GeneralSalesComponent implements OnInit {
     fetchAllSales(): void {
     this.generalSaleService.findGeneralSales().subscribe((res:OrderData[])=>{
       this.generalSales=res;
-      console.log(this.generalSales);
+      this.grandTotalSale = this.generalSales.reduce((acc, order) => acc + order.totalAmount, 0);
+      this.grandTotalPurchase = this.generalSales.reduce((acc, order) => acc + order.totalPurchasePrice, 0);
+      this.profit = this.grandTotalSale - this.grandTotalPurchase;
     })
     }
 
-  subTotalPurchasePriceSum(saleItems:OrderData): number {
-    // console.log(saleItems.orderItems[].subtotalPurchasePrice);
-    return saleItems.orderItems.reduce((sum, item) => {
-      return sum + (item.subtotalPurchasePrice || 0); // Safely add the subtotalPurchasePrice, assuming it can be null or undefined
-    }, 0);
-  }
+ 
 
   deleteInvoice(id:number){
     this.generalSaleService.deleteSale(id).subscribe(res=>{
@@ -65,5 +65,6 @@ export class GeneralSalesComponent implements OnInit {
       this.fetchAllSales()
     })
   }
+
 
 }

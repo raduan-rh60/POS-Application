@@ -9,11 +9,11 @@ export const admin: NavItem[] = [
     iconName: 'solar:widget-add-line-duotone',
     route: '/dashboard',
   },
-  {
-    displayName: 'Users & Employees',
-    iconName: 'solar:users-group-rounded-outline',
-    route: '/users',
-  },
+  // {
+  //   displayName: 'Users & Employees',
+  //   iconName: 'solar:users-group-rounded-outline',
+  //   route: '/users',
+  // },
   {
     displayName: 'Profile',
     iconName: 'solar:settings-outline',
@@ -38,21 +38,21 @@ export const admin: NavItem[] = [
     iconName: 'solar:ticket-sale-broken',
     route: '/sales/online-sales',
   },
-  {
-    displayName: 'Returns',
-    iconName: 'solar:bookmark-square-minimalistic-line-duotone',
-    route: '/sales/return',
-  },
+  // {
+  //   displayName: 'Returns',
+  //   iconName: 'solar:bookmark-square-minimalistic-line-duotone',
+  //   route: '/sales/return',
+  // },
   {
     displayName: 'Purchase',
     iconName: 'solar:file-text-line-duotone',
     route: '/sales/purchase-list',
   },
-  {
-    displayName: 'Stock',
-    iconName: 'solar:text-field-focus-line-duotone',
-    route: '/sales/stock',
-  },
+  // {
+  //   displayName: 'Stock',
+  //   iconName: 'solar:text-field-focus-line-duotone',
+  //   route: '/sales/stock',
+  // },
   {
     displayName: 'Damages',
     iconName: 'solar:file-text-line-duotone',
@@ -76,49 +76,49 @@ export const admin: NavItem[] = [
   },
 
 
-  {
-    navCap: 'People',
-    divider: true
-  },
-  {
-    displayName: 'Customer',
-    iconName: 'solar:login-3-line-duotone',
-    route: '/relation/customer',
-  },
-  {
-    displayName: 'Suplier',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '/relation/supplier',
-  },
-  {
-    navCap: 'Reports',
-    divider: true
-  },
-  {
-    displayName: 'Daily Report',
-    iconName: 'solar:login-3-line-duotone',
-    route: '',
-  },
-  {
-    displayName: 'Profit loss report',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '',
-  },
-  {
-    displayName: 'Current Month Report',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '',
-  },
-  {
-    displayName: 'Current Year Report',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '',
-  },
-  {
-    displayName: 'Purchase Report',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '',
-  },
+  // {
+  //   navCap: 'People',
+  //   divider: true
+  // },
+  // {
+  //   displayName: 'Customer',
+  //   iconName: 'solar:login-3-line-duotone',
+  //   route: '/relation/customer',
+  // },
+  // {
+  //   displayName: 'Suplier',
+  //   iconName: 'solar:user-plus-rounded-line-duotone',
+  //   route: '/relation/supplier',
+  // },
+  // {
+  //   navCap: 'Reports',
+  //   divider: true
+  // },
+  // {
+  //   displayName: 'Daily Report',
+  //   iconName: 'solar:login-3-line-duotone',
+  //   route: '',
+  // },
+  // {
+  //   displayName: 'Profit loss report',
+  //   iconName: 'solar:user-plus-rounded-line-duotone',
+  //   route: '',
+  // },
+  // {
+  //   displayName: 'Current Month Report',
+  //   iconName: 'solar:user-plus-rounded-line-duotone',
+  //   route: '',
+  // },
+  // {
+  //   displayName: 'Current Year Report',
+  //   iconName: 'solar:user-plus-rounded-line-duotone',
+  //   route: '',
+  // },
+  // {
+  //   displayName: 'Purchase Report',
+  //   iconName: 'solar:user-plus-rounded-line-duotone',
+  //   route: '',
+  // },
 
 ];
 export const employee: NavItem[] = [

@@ -19,6 +19,9 @@ export class OrderService {
   public findOrderById(id: string | null):Observable<OrderData> {
     return this.http.get<OrderData>(`${this.baseUrl}/${id}`);
   }
+  public findallSales():Observable<OrderData[]>{
+    return this.http.get<OrderData[]>(`${this.baseUrl}`);
+  }
   public findGeneralSales():Observable<OrderData[]>{
     return this.http.get<OrderData[]>(`${this.baseUrl}/order-type?orderType=GENERAL`);
   }

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-3 col-md-6 ">
+  <div class="col-lg-6 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-primary">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -20,7 +20,7 @@
       </mat-card-content>
     </mat-card>
 </div>
-  <div class="col-lg-3 col-md-6 ">
+  <div class="col-lg-6 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-warning">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -34,14 +34,14 @@
     
         <div class="row ">
           <div class="col-12 f-a-e">
-            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalPurchase +' '+ currency}}</h5>
           </div>
         
         </div>
       </mat-card-content>
     </mat-card>
 </div>
-  <div class="col-lg-3 col-md-6 ">
+  <div class="col-lg-6 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-error">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -50,19 +50,19 @@
           >
             <i class="iconify f-s-40 text-dark" data-icon="solar:archive-down-broken"></i>
           </div>
-          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total return</mat-card-title>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total dmage</mat-card-title>
         </div>
     
         <div class="row ">
           <div class="col-12 f-a-e">
-            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalDamageProducts}} PC</h5>
           </div>
         
         </div>
       </mat-card-content>
     </mat-card>
 </div>
-  <div class="col-lg-3 col-md-6 ">
+  <div class="col-lg-6 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-accent">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -76,7 +76,7 @@
     
         <div class="row ">
           <div class="col-12 f-a-e">
-            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalSold +' '+ currency}}</h5>
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{totalProfit +' '+ currency}}</h5>
           </div>
         
         </div>
@@ -84,64 +84,6 @@
     </mat-card>
 </div>
   
-  <div class="col-lg-8">
-    <app-revenue-forecast></app-revenue-forecast>
-  </div>
-  <div class="col-lg-4">
-    <div class="row">
-      <div class="col-12">
-        <app-new-customers></app-new-customers>
-      </div>
-      <div class="col-12">
-        <app-total-income></app-total-income>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-8">
-    <app-revenue-product></app-revenue-product>
-  </div>
-  <div class="col-lg-4">
-    <mat-card class="cardWithShadow">
-      <mat-card-content>
-        <div class="hstack align-items-center">
-          <div
-            class="rounded icon-48 bg-light-primary d-flex align-items-center flex-shrink-0 justify-content-center"
-          >
-            <i class="iconify f-s-24 text-dark" data-icon="solar:shop-outline"></i>
-          </div>
-          <mat-card-title class="f-s-16 f-w-500 m-b-0">Todays Sale By Shop</mat-card-title>
-        </div>
-       <div class="table-responsive">
-        <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
-          <!-- Item Column -->
-          <ng-container matColumnDef="shopName">
-            <th mat-header-cell *matHeaderCellDef> Shop Name </th>
-            <td mat-cell *matCellDef="let transaction"> {{transaction.shopName}} </td>
-          </ng-container>
-        
-          <!-- Cost Column -->
-          <ng-container matColumnDef="sales">
-            <th mat-header-cell *matHeaderCellDef class="text-end"> Sales </th>
-            <td mat-cell *matCellDef="let transaction" class="text-end"> {{transaction.sales}} </td>
-           
-          </ng-container>
-
-          <!-- <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> Delete </th>
-            
-            <td mat-cell *matCellDef="let transaction">  <button mat-icon-button color="warn">
-              <mat-icon>delete</mat-icon>
-            </button> </td>
-          
-          </ng-container> -->
-        
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-       
-       </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  
 
 </div>

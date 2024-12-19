@@ -1,6 +1,6 @@
 import {Component, input, OnInit} from '@angular/core';
 import { MaterialModule } from 'src/app/material.module';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {OrderService} from "../generate-sale/service/order.service";
 import {DatePipe} from "@angular/common";
 export interface OrderItem {
@@ -25,14 +25,14 @@ export interface OrderData {
   saleDate: string; // You might want to use Date type if needed
   totalAmount: number;
   transactionType: string;
-  totalPurchaseAmount: number;
+  totalPurchasePrice: number;
 
 }
 
 @Component({
   selector: 'app-order-details',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule,RouterLink],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss'
 })

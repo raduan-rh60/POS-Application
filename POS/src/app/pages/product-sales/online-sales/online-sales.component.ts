@@ -25,7 +25,9 @@ import {TableModule} from "primeng/table";
 })
 export class OnlineSalesComponent implements OnInit {
    onlineSale: OrderData[]=[];
-
+   grandTotalSale:number;
+   grandTotalPurchase:number;
+   profit:number;
   constructor(private  onlineSaleService:OrderService) {}
 
   ngOnInit(): void {
@@ -35,16 +37,12 @@ export class OnlineSalesComponent implements OnInit {
   fetchAllSales(): void {
     this. onlineSaleService.findOnlineSales().subscribe((res:OrderData[])=>{
       this. onlineSale=res;
-      console.log(this. onlineSale);
+      this.grandTotalSale = this.onlineSale.reduce((acc, order) => acc + order.totalAmount, 0);
+      this.grandTotalPurchase = this.onlineSale.reduce((acc, order) => acc + order.totalPurchasePrice, 0);
+      this.profit = this.grandTotalSale - this.grandTotalPurchase;
     })
   }
 
-  subTotalPurchasePriceSum(saleItems:OrderData): number {
-    // console.log(saleItems.orderItems[].subtotalPurchasePrice);
-    return saleItems.orderItems.reduce((sum, item) => {
-      return sum + (item.subtotalPurchasePrice || 0); // Safely add the subtotalPurchasePrice, assuming it can be null or undefined
-    }, 0);
-  }
 
   deleteInvoice(id:number){
     this.onlineSaleService.deleteSale(id).subscribe(res=>{

@@ -1,57 +1,204 @@
+<div class="row">
+  <div class="col-md-6">
+    <mat-card class="cardWithShadow bg-light-primary">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-success" data-icon="solar:box-line-duotone"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Purchase</mat-card-title>
+        </div>
+
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{grandTotal}} TK</h5>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <mat-card class="cardWithShadow bg-light-accent">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-success" data-icon="solar:box-line-duotone"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Purchase This month</mat-card-title>
+        </div>
+
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{monthGrandTotal}} TK</h5>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
 
 <mat-card class="cardWithShadow theme-card">
-    <mat-card-header>
-      <mat-card-title class="m-b-0">Product Informaiton</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="b-t-1">
-      <div class="table-responsive">
-        <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
-          <ng-template pTemplate="header">
-              <tr>
-                <th>id</th>
-                <th>Product Image</th>
-                <th pSortableColumn="ProductName">Name</th>
-                <th pSortableColumn="ProductStock">Stock</th>
-                <th pSortableColumn="PurchasePrice">Purchase</th>
-                <th pSortableColumn="salingPrice">Sale</th>
-                <th pSortableColumn="category">Category</th>
-                <th pSortableColumn="brand">Brand</th>
-                <th >Action</th>
-                  
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-dataSource>
-              <tr>
-                  <td>
-                    <img
-                [src]= dataSource.imagePath 
-                alt="users"
-                width="48"
-                class="rounded"
-              /></td>
-                  <td>{{ dataSource.productId }}</td>
-                  <td>{{ dataSource.pName }}</td>
-                  <td>{{ dataSource.sQuantity }}</td>
-                  <td>{{ dataSource.productPrice}}</td>
-                  <td>{{ dataSource.paidPrice }}</td>
-                  <td>{{ dataSource.duePrice }}</td>
-                  <td>{{ dataSource.customerName }}</td>
-                  <td>{{ dataSource.saleDate }}</td>
-                  <td>{{ dataSource.saleTime }}</td>
-                  <td>{{ dataSource.shopeReferance }}</td>
-                  <td><span
-                    ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                      <button mat-icon-button color="warn">
-                        <i class="bi bi-trash"></i>
-                      </button></span
-                    ></span
-                  ></td>
-              </tr>
-          </ng-template>
-        </p-table>
+  <mat-card-content class="b-t-1">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <mat-card-title class="f-s-16 f-w-500 m-b-0"
+          >Purchase Table
+        </mat-card-title>
       </div>
-    </mat-card-content>
-  </mat-card>
-  
+      <div class="col-md-6 text-end">
+        <button
+          mat-raised-button
+          class="bg-primary text-white"
+          (click)="purchaseDialogueShow()"
+        >
+          Add Purchase
+        </button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <p-table
+        [value]="purchases"
+        sortField="price"
+        [sortOrder]="-1"
+        [tableStyle]="{ 'min-width': '60rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>id</th>
+            <th pSortableColumn="name">Name<p-sortIcon field="name"/></th>
+            <th pSortableColumn="quantity">Stock<p-sortIcon field="quantity"/></th>
+            <th pSortableColumn="date">Date<p-sortIcon field="date"/></th>
+            <th >Time</th>
+            <th pSortableColumn="sub_total">Purchase<p-sortIcon field="sub_total"/></th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-purchase>
+          <tr>
+            <td>{{ purchase.id }}</td>
+            <td>{{ purchase.name }}</td>
+            <td>{{ purchase.quantity }}</td>
+            <td>{{ purchase.date | date:'d-M-yy'}}</td>
+            <td>{{ purchase.date | date:'h:mm a'}}</td>
+            <td>{{ purchase.sub_total }} TK</td>
+            <!-- Format as currency -->
+            <td>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deletePurchase(purchase.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Dialogue -->
+<p-dialog
+  header="Add New Purchase"
+  [modal]="true"
+  [(visible)]="purchaseDialogue"
+  [style]="{ width: '50vw' }"
+>
+  <form>
+    <div class="form-container">
+      <div class="row">
+        <div class="col-6">
+          <!-- Product Name -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Product Name
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            <input
+              matInput
+              placeholder="Type Product Name"
+              list="nameList"
+              name="name"
+              [(ngModel)]="purchase.name"
+              required
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <!-- Quantity -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Quantity
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            <input
+              matInput
+              type="number"
+              placeholder="Enter Quantity"
+              name="quantity"
+              [(ngModel)]="purchase.quantity"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <!-- Rate -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Rate
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            
+            <input
+              matInput
+              type="number"
+              placeholder="Enter Rate"
+              name="rate"
+              [(ngModel)]="purchase.rate"
+              (focusout)="onchangeRate(purchase)"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <!-- Sub Total (Calculated) -->
+          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
+            Subtotal
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-75" color="primary">
+            
+            <input
+              matInput
+              [value]="subTotalTest"
+              placeholder="Sub Total"
+              name="subtotal"
+              readonly
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="savePurchase()">
+            Add Purchase
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  @if (addSuccess) {
+  <mat-card-title class="text-success text-center">
+    Purchase Added Successful</mat-card-title
+  >
+  } @else if (addError){
+  <mat-card-title class="text-error text-center">
+    Something wrong</mat-card-title
+  >
+
+  }
+</p-dialog>
