@@ -58,4 +58,9 @@ public class CartController {
             return ResponseEntity.status(400).body("No orders were updated. Please check if there are orders with 'PENDING' status.");
         }
     }
+    @PostMapping("new")
+    @CrossOrigin
+    public Cart addToCart(@RequestParam long productId){
+        return cartService.addProductToCart(productId);
+    }
 }

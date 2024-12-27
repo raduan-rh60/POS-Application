@@ -13,7 +13,7 @@
 
         <div class="row ">
           <div class="col-12 f-a-e">
-            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{grandTotalSale}}TK</h5>
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ grandTotalSale }}TK</h5>
           </div>
 
         </div>
@@ -34,7 +34,7 @@
 
         <div class="row ">
           <div class="col-12 f-a-e">
-            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{profit}}TK</h5>
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ profit }}TK</h5>
           </div>
 
         </div>
@@ -46,49 +46,85 @@
 <mat-card class="cardWithShadow">
   <mat-card-content>
 
-    <div class="row justify-content-end mb-5">
-      <div class="col-md-6">
+    <div class="row justify-content-center mb-5">
+      <div class="text-center">
         <mat-card-title>Product Sale List</mat-card-title>
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="">
 
       <p-table [value]="onlineSale" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template pTemplate="header">
           <tr>
             <th style="width:10px">Invoice No.</th>
-            <th>Items</th>
+            <th class="w-25">Items</th>
             <th pSortableColumn="saleDate">Date
               <p-sortIcon field="saleDate"/>
             </th>
             <th>Time</th>
             <th>Paid Amount</th>
             <th>Purchase Cost</th>
+            <th>Order Status</th>
             <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-dataSource>
           <tr>
             <td>{{ dataSource.id }}</td>
-            <td> <ul>
-              @for (item of dataSource.orderItems; track $index) {
-                <li>{{ item.name }}: {{ item.quantity }}pc</li>
-              }
-            </ul>
+            <td>
+              <ul>
+                @for (item of dataSource.orderItems; track $index) {
+                  <li>{{ item.name }}: {{ item.quantity }}pc</li>
+                }
+              </ul>
             </td>
-            <td>{{ dataSource.saleDate | date:'d-M-yy'}}</td>
-            <td>{{ dataSource.saleDate | date:'h:mm a'}}</td>
-            <td>{{ dataSource.totalAmount | number:'1.2-2'  }} TK</td>
-            <td>{{ dataSource.totalPurchasePrice }}</td>
+            <td>{{ dataSource.saleDate | date:'d-M-yy' }}</td>
+            <td>{{dataSource.saleDate +'T'+ dataSource.saleTime | date:'h:mm a' }}</td>
+            <td>{{ dataSource.totalAmount | number:'1.2-2' }} TK</td>
+            <td>{{ dataSource.totalPurchasePrice }} TK</td>
+            <td>
+              <mat-form-field appearance="outline" class="w-50 mt-3 mb-0" color="primary">
+                <mat-select
+                  placeholder="Select"
+                  name="categoryId"
+                  [(ngModel)]="dataSource.orderStatus"
+                  (selectionChange)="updateStatus(dataSource)"
+                >
+
+                  <mat-option value="PROCESS"> Process</mat-option>
+                  <mat-option value="DELIVERED"> Delivered</mat-option>
+                  <mat-option value="HOLD"> Hold</mat-option>
+                  <mat-option value="PICK"> Pick</mat-option>
+                  <mat-option value="COMPLETE"> Complete</mat-option>
+
+                </mat-select>
+              </mat-form-field>
+            </td>
 
 
             <td><span
-            ><span class="f-w-600 f-s-14">
-                      <button mat-icon-button color="warn" (click)="deleteInvoice(dataSource.id)">
-                        <i class="bi bi-trash"></i>
-                      </button></span
-            ></span
+            >
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+              >
+              <mat-icon>
+                <i-tabler name="dots" class="icon-20"></i-tabler>
+              </mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="cardWithShadow">
+              <button mat-menu-item (click)="deleteInvoice(dataSource.id)">
+                <mat-icon color="warn">delete</mat-icon>
+                <span>Delete</span>
+              </button>
+              <button mat-menu-item (click)="returnProduct(dataSource.id)">
+                <mat-icon>redo</mat-icon>
+                <span>Return</span>
+              </button>
+            </mat-menu>
+            </span
             ></td>
           </tr>
         </ng-template>

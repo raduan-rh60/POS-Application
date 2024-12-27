@@ -6,7 +6,7 @@ import { AppRevenueProductComponent, productsData } from 'src/app/components/rev
 import { AppRevenueForecastComponent } from 'src/app/components/revenue-forecast/revenue-forecast.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductService } from '../product-info/product-lists/service/product.service';
@@ -35,7 +35,8 @@ interface Transaction {
     MatCardModule,
     MatTableModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    DecimalPipe,
   ],
   templateUrl: './starter.component.html',
   styleUrls: ['./starter.component.scss'],
@@ -47,7 +48,6 @@ export class StarterComponent implements OnInit{
   ngOnInit(): void {
     this.findProduct();
     this.findPurchase();
-    this.profit()
     this.damage()
   }
   constructor(private saleService:OrderService,private purchaseService:PurchaseService,private damageService:DamageService){
@@ -59,7 +59,6 @@ export class StarterComponent implements OnInit{
   totalSold:number;
   totalPurchase:number;
   totalDamageProducts:number;
-  totalProfit:number;
   displayedColumns: string[] = ['shopName', 'sales'];
   transactions: Transaction[] = [
     {shopName: 'Beach ball', sales: 4, delete:false},
@@ -70,7 +69,7 @@ export class StarterComponent implements OnInit{
 findProduct(){
   this.saleService.findallSales().subscribe(res=>{
     this.totalSold =res.reduce((acc, price) => acc + price.totalAmount, 0);
-    
+
   })
 }
 findPurchase(){
@@ -81,14 +80,12 @@ findPurchase(){
       console.log('Purchase SubTotal:', purchase.sub_total);
 
       // Ensure subTotal is a valid number, default to 0 if not
-      const subTotal = (typeof purchase.sub_total === 'number' && !isNaN(purchase.sub_total)) 
-        ? purchase.sub_total 
+      const subTotal = (typeof purchase.sub_total === 'number' && !isNaN(purchase.sub_total))
+        ? purchase.sub_total
         : 0;
 
       return acc + subTotal; // Add the sub_total to the accumulator
     }, 0);
-    console.log(this.totalPurchase)
-    this.totalProfit=this.totalSold-this.totalPurchase
 
   })
 }
@@ -98,10 +95,7 @@ damage(){
     console.log(res);
   })
 }
-profit(){
-  this.totalProfit=this.totalSold-this.totalPurchase
-  console.log(this.totalProfit)
-}
+
   // decimalPipe = new DecimalPipe('en-US');
 
   // /** Data accessor function that transforms the weight value to have at most 2 decimal digits. */

@@ -20,4 +20,6 @@ public interface CartRepo extends JpaRepository<Cart,Long> {
     @Transactional
     @Query(value = "UPDATE Cart c SET c.cartStatus = :newStatusType WHERE c.cartStatus = 'PENDING'")
     int updateCartStatusForPendingOrders(@Param("newStatusType") CartStatus newStatusType);
+
+    Cart findByProductIdAndCartStatus(Long productId, CartStatus cartStatus);
 }

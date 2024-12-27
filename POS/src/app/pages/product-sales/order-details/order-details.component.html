@@ -30,6 +30,10 @@
 
       <table class="table table-info my-4">
         <tr>
+          <th class="w-50">Invoice Number:</th>
+          <td>{{orderDetails.id}}</td>
+        </tr>
+        <tr>
           <th>Customer Name:</th>
           <td>{{orderDetails.customerName}}</td>
         </tr>
@@ -51,7 +55,7 @@
         </tr>
         <tr>
           <th>Sale Date:</th>
-          <td>{{orderDetails.saleDate}}</td>
+          <td>{{orderDetails.saleDate| date:'d-M-yy'}}</td>
         </tr>
         <tr>
           <th>Transaction Type:</th>
@@ -95,13 +99,13 @@
       </table>
       <div class="row justify-content-evenly">
         <div class="col-4 text-center ">
-          <button mat-raised-button color="accent" class="w-50" routerLink="../general-sales">Order List</button>
+          <button mat-raised-button color="accent" class="w-50" (click)="navigateToPage(orderDetails.orderType)">Order List</button>
         </div>
         <div class="col-4 text-center">
           <button mat-raised-button color="accent" class="w-50" (click)="printSection()">Print</button>
         </div>
         <div class="col-4 text-center">
-          <button mat-raised-button color="accent" class="w-50">New Order</button>
+          <button mat-raised-button color="accent" class="w-50" routerLink="../../pos">New Order</button>
         </div>
       </div>
 

@@ -33,4 +33,8 @@ export class CartService {
   public updateStatus(status:string){
     return this.http.patch(`${this.baseUrl}/status?cartStatus=${status}`,{},{responseType:"text"});
   }
+
+  public newAddToCart(productId:number):Observable<CartModel> {
+    return this.http.post<CartModel>(`${this.baseUrl}/new?productId=${productId}`,{});
+  }
 }

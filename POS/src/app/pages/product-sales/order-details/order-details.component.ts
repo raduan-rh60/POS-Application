@@ -17,28 +17,29 @@ export interface OrderData {
   customerAddress: string;
   customerName: string;
   customerPhone: string;
+  discount:number;
   id: number;
   note: string;
   orderItems: OrderItem[]; // Array of OrderItem objects
   orderStatus: string;
   orderType: string;
-  saleDate: string; // You might want to use Date type if needed
+  saleDate: Date;
+  saleTime:Date; // You might want to use Date type if needed
   totalAmount: number;
   transactionType: string;
   totalPurchasePrice: number;
-
 }
 
 @Component({
   selector: 'app-order-details',
   standalone: true,
-  imports: [MaterialModule,RouterLink],
+  imports: [MaterialModule, RouterLink, DatePipe],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss'
 })
 export class OrderDetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,private orderService: OrderService) { }
+  constructor(private route: ActivatedRoute,private orderService: OrderService,private router: Router) { }
 
   id:string | null;
   orderDetails:OrderData;
@@ -85,7 +86,12 @@ export class OrderDetailsComponent implements OnInit {
   }
 
 
-
-
-
+  navigateToPage(data:string) {
+      console.log(data);
+    if(data == "ONLINE"){
+      this.router.navigate(['/sales/online-sales']);
+    }else {
+      this.router.navigate(['/sales/general-sales']);
+    }
+  }
 }

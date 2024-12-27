@@ -31,4 +31,7 @@ export class OrderService {
   public deleteSale(id:number){
     return this.http.delete(`${this.baseUrl}/${id}`,{responseType:"text"});
   }
+  public updateSale(data:OrderData){
+    return this.http.put(`${this.baseUrl}/update-sale/${data.id}`, data);
+  }
 }

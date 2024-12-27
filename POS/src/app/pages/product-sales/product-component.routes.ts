@@ -10,6 +10,7 @@ import { ProductDamageListComponent } from './product-damage-list/product-damage
 import { ProductStockListComponent } from './product-stock-list/product-stock-list.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import {OnlineSalesComponent} from "./online-sales/online-sales.component";
+import {ReturnFormComponent} from "./return-form/return-form.component";
 
 export const ProductComponent: Routes = [
   {
@@ -48,6 +49,10 @@ export const ProductComponent: Routes = [
       {
         path: 'order-details/:id',
         component: OrderDetailsComponent,
+      },
+      {
+        path: 'return-form/:id',
+        component: ReturnFormComponent,
       },
     ],
   },

@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -20,10 +22,12 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String customerName;
-    private Date saleDate;
+    private LocalDate saleDate;
+    private LocalTime saleTime;
     private String customerAddress;
     private String customerPhone;
     private double totalAmount;
+    private double discount;
     private String note;
     private String transactionType;
     private double totalPurchasePrice;

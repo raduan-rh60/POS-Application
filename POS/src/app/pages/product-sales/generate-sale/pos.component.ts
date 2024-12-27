@@ -1,25 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { PosServiceService } from './service/pos-service.service';
-import { Product } from '../../product-info/product-lists/lists.component';
-import { ProductService } from '../../product-info/product-lists/service/product.service';
-import { CategoryService } from '../../product-info/category-and-brands/service/category.service';
-import { CategoryModel } from '../../product-info/category-and-brands/category-and-brands.component';
-import { CartService } from './service/cart.service';
-import { DialogModule } from 'primeng/dialog';
-import { DecimalPipe } from '@angular/common';
-import { MatDivider } from '@angular/material/divider';
-import { OrderService } from './service/order.service';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {FloatLabelModule} from 'primeng/floatlabel';
+import {PosServiceService} from './service/pos-service.service';
+import {Product} from '../../product-info/product-lists/lists.component';
+import {ProductService} from '../../product-info/product-lists/service/product.service';
+import {CategoryService} from '../../product-info/category-and-brands/service/category.service';
+import {CategoryModel} from '../../product-info/category-and-brands/category-and-brands.component';
+import {CartService} from './service/cart.service';
+import {DialogModule} from 'primeng/dialog';
+import {DecimalPipe} from '@angular/common';
+import {MatDivider} from '@angular/material/divider';
+import {OrderService} from './service/order.service';
+import {MessageService} from 'primeng/api';
+import {Router} from '@angular/router';
 
 export interface CartModel {
   id: number;
@@ -37,12 +37,14 @@ export interface CartModel {
 
 export interface OrderModel {
   id?: number;
-  saleDate: Date;
+  saleDate?:Date;
+  saleTime?:Date;
   customerName: string;
   customerAddress?: string;
   customerPhone: string;
   note: string;
   totalAmount: number;
+  discount:number;
   orderType: string;
   orderStatus?: string;
   transactionType: string;
@@ -98,11 +100,11 @@ export class PosComponent implements OnInit {
   // for order popup option.
   orderOption: OrderModel = {
     id: 0,
-    saleDate: new Date(),
     customerName: '',
     customerAddress: '',
     customerPhone: '',
     note: '',
+    discount:0,
     totalAmount: 0,
     orderType: '',
     orderStatus: 'COMPLETE',
@@ -119,7 +121,8 @@ export class PosComponent implements OnInit {
     private cartService: CartService,
     private orderService: OrderService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.categoryList();
@@ -208,22 +211,14 @@ export class PosComponent implements OnInit {
     });
   }
 
+
   passProduct(product: Product) {
     if (product.stock == 0) {
       alert('product not available');
     } else {
-      this.addToCart.productId = product.id;
-      this.addToCart.name = product.name;
-      this.addToCart.price = product.price;
-      this.addToCart.purchasePrice = product.purchasePrice;
-      this.addToCart.quantity = 1;
-      this.addToCart.subtotal = product.price * this.addToCart.quantity;
-      this.addToCart.subTotalPurchasePrice =
-        product.purchasePrice * this.addToCart.quantity;
-
-      this.cartService.addCart(this.addToCart).subscribe((res) => {
+      this.cartService.newAddToCart(product.id).subscribe((res) => {
+        this.addToCart = res;
         this.getAllCart();
-        console.log(res);
       });
     }
   }
@@ -237,10 +232,11 @@ export class PosComponent implements OnInit {
 
   updateCart(cart: CartModel) {
     console.log(cart);
-    this.cartService.editCart(cart).subscribe((res) => {});
+    this.cartService.editCart(cart).subscribe((res) => {
+    });
   }
 
-  discount: number = 0;
+
   discountGrandTotal: number = 0;
   deliveryCharge: number = 0;
   finalPrice: number = 0;
@@ -271,7 +267,7 @@ export class PosComponent implements OnInit {
 
   applyDiscount(): number {
     this.discountGrandTotal =
-      this.addToCart.grandTotal * (1 - this.discount / 100);
+      this.addToCart.grandTotal * (1 - this.orderOption.discount / 100);
     return this.discountGrandTotal;
   }
 
@@ -306,56 +302,78 @@ export class PosComponent implements OnInit {
     this.orderOption.totalAmount = this.finalPrice;
   }
 
-  order() {
-    // Step 1: Save the order
-    console.log(this.orderOption);
-    console.log(this.orderOption);
-    this.orderService.saveOrder(this.orderOption).subscribe((res) => {
-      console.log(res);
-      if (res != null) {
-        // Step 2: Loop through each product in the cart and update stock
-        this.cartService.getAllCart().subscribe((cartItems) => {
-          cartItems.forEach((item) => {
-            // For each item we will search each product
-            this.productService
-              .getProductById(item.productId)
-              .subscribe((product) => {
-                // For each cart item, calculate the new stock
-                const updatedStock = product.stock - item.quantity;
-                // Step 3: Update the stock for each product in the cart
-                if (updatedStock >= 0) {
-                  this.productService
-                    .updateStock(product.id, updatedStock)
-                    .subscribe(
-                      (stockRes) => {
-                        console.log(
-                          `Updated stock for product ${product.id}: ${updatedStock}`
-                        );
-                      },
-                      (error) => {
-                        console.error(
-                          `Error updating stock for product ${product.id}`,
-                          error
-                        );
-                      }
-                    );
-                } else {
-                  console.error(`Not enough stock for product ${product.id}`);
-                  // Optionally, you could handle the error here (e.g., show a message to the user)
-                }
-              });
-          });
+  // order() {
+  //   // Step 1: Save the order
+  //   console.log(this.orderOption);
+  //   console.log(this.orderOption);
+  //   this.orderService.saveOrder(this.orderOption).subscribe((res) => {
+  //     console.log(res);
+  //     if (res != null) {
+  //       // Step 2: Loop through each product in the cart and update stock
+  //       this.cartService.getAllCart().subscribe((cartItems) => {
+  //         cartItems.forEach((item) => {
+  //           // For each item we will search each product
+  //           this.productService
+  //             .getProductById(item.productId)
+  //             .subscribe((product) => {
+  //               // For each cart item, calculate the new stock
+  //               const updatedStock = product.stock - item.quantity;
+  //               // Step 3: Update the stock for each product in the cart
+  //               if (updatedStock >= 0) {
+  //                 this.productService
+  //                   .updateStock(product.id, updatedStock)
+  //                   .subscribe(
+  //                     (stockRes) => {
+  //                       console.log(
+  //                         `Updated stock for product ${product.id}: ${updatedStock}`
+  //                       );
+  //                     },
+  //                     (error) => {
+  //                       console.error(
+  //                         `Error updating stock for product ${product.id}`,
+  //                         error
+  //                       );
+  //                     }
+  //                   );
+  //               } else {
+  //                 console.error(`Not enough stock for product ${product.id}`);
+  //                 // Optionally, you could handle the error here (e.g., show a message to the user)
+  //               }
+  //             });
+  //         });
+  //
+  //         // Step 4: Update the cart status to "ORDERED"
+  //         this.cartService.updateStatus('ORDERED').subscribe((updateRes) => {
+  //           // Step 5: Refresh the cart after status update
+  //           this.getAllCart();
+  //           this.paymentDialogue = false; // Close the payment dialog
+  //         });
+  //       });
+  //       this.orderOption = res;
+  //       this.router.navigate(['sales/order-details/', this.orderOption.id]);
+  //     }
+  //   });
+  // }
 
-          // Step 4: Update the cart status to "ORDERED"
-          this.cartService.updateStatus('ORDERED').subscribe((updateRes) => {
-            // Step 5: Refresh the cart after status update
-            this.getAllCart();
-            this.paymentDialogue = false; // Close the payment dialog
-          });
+  order(): void {
+    console.log(this.orderOption);
+    if (this.cartList.length === 0) {
+      alert('Cart is empty!');
+      return;
+    }
+
+    this.orderService.saveOrder(this.orderOption).subscribe(
+      (res) => {
+        // Update the cart status to "ORDERED"
+        this.cartService.updateStatus('ORDERED').subscribe((updateRes) => {
+          // Refresh the cart after status update
+          this.getAllCart();
+
         });
         this.orderOption = res;
+        console.log(this.orderOption);
         this.router.navigate(['sales/order-details/', this.orderOption.id]);
       }
-    });
+    );
   }
 }

@@ -41,4 +41,9 @@ public class SaleController {
         saleService.delete(id);
         return ResponseEntity.ok("delete Successful");
     }
+    @PutMapping("update-sale/{id}")
+    public Sale editSale(@PathVariable long id,@RequestBody SaleDTO saleDTO){
+
+        return saleService.updateSale(id,saleDTO);
+    }
 }

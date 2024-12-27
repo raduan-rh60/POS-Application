@@ -1,0 +1,103 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-content >
+      <mat-card-title class="f-s-24 f-w-500 m-b-0 text-center">POS Return </mat-card-title>
+    </mat-card-content>
+  </mat-card>
+
+<div class="row">
+  <div class="col-md-5">
+    <mat-card class="cardWithShadow theme-card">
+      <mat-card-content >
+        <mat-card-title class="f-s-18 f-w-500 m-b-3">Basic Details </mat-card-title>
+        <mat-divider class="mb-3"></mat-divider>
+
+        <table class="table table-responsive">
+         <tr>
+            <th>Invoice ID:</th>
+            <td>{{orderDetails.id}}</td>
+         </tr>
+          <tr>
+            <th>Order Type:</th>
+            <td>{{orderDetails.orderType}}</td>
+         </tr>
+         <tr>
+            <th>Order Date:</th>
+            <td>{{orderDetails.saleDate}}</td>
+         </tr>
+         <tr>
+            <th>Customer Name:</th>
+            <td>{{orderDetails.customerName}}</td>
+         </tr>
+         <tr>
+            <th>Discount</th>
+            <td>@if(orderDetails.discount>0){-}{{orderDetails.discount}}</td>
+         </tr>
+         <tr>
+            <th>Total Amount</th>
+            <td>{{orderDetails.totalAmount}}</td>
+         </tr>
+
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-7">
+    <mat-card class="cardWithShadow theme-card">
+      <mat-card-content >
+        <mat-card-title class="f-s-18 f-w-500 m-b-3">Return Product</mat-card-title>
+        <mat-divider class="mb-3"></mat-divider>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Unite Price</th>
+              <th scope="col">Order Quantity</th>
+              <th scope="col">Return Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (items of returnItem.returnItems; track $index) {
+              <tr>
+                <td>{{ items.name }}</td>
+                <td>{{ items.price }}</td>
+                <td>{{ items.quantity }}</td>
+                <td>
+                  <input matInput type="number" [(ngModel)]= items.returnQuantity  (change)="disableInput(items)"/>
+
+                </td>
+
+                <td>{{ items.subtotal }}</td>
+                <td>
+                  <button class="btn btn-sm mt-0 p-0" (click)="removeReturnItem(items.id)">
+                    <mat-icon color="warn">delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            }
+          <tr>
+            <td colspan="4" class="text-end">
+              Total
+            </td>
+            <td>{{returnSubtotal}}</td>
+          </tr>
+          <tr>
+            <td colspan="4"  class="text-end">
+              Discount
+            </td>
+            <td>{{returnItem.discount}}</td>
+          </tr>
+          <tr>
+            <td colspan="4"  class="text-end">
+              Return Amount
+            </td>
+            <td>{{returnItem.returnAmount}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <button mat-raised-button color="accent" (click)="saveReturn()">Return</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

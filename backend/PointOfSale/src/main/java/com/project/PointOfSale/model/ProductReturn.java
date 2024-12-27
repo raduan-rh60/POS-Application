@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,13 +19,11 @@ public class ProductReturn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String reason;
-    private Date date;
+    private LocalDate date;
+    private double returnAmount;
+    private double discount;
 
-//    private String product_id;
-//    private int shop_id;
-//    private int user_id;
-//    private int sale_id;
-
-
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Sale order_id;
 }

@@ -38,11 +38,11 @@ export const admin: NavItem[] = [
     iconName: 'solar:ticket-sale-broken',
     route: '/sales/online-sales',
   },
-  // {
-  //   displayName: 'Returns',
-  //   iconName: 'solar:bookmark-square-minimalistic-line-duotone',
-  //   route: '/sales/return',
-  // },
+  {
+    displayName: 'Returns',
+    iconName: 'solar:bookmark-square-minimalistic-line-duotone',
+    route: '/sales/return',
+  },
   {
     displayName: 'Purchase',
     iconName: 'solar:file-text-line-duotone',
