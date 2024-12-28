@@ -34,4 +34,7 @@ export class OrderService {
   public updateSale(data:OrderData){
     return this.http.put(`${this.baseUrl}/update-sale/${data.id}`, data);
   }
+  public getSalesByYearAndMonth():Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseUrl}/year-month`);
+  }
 }

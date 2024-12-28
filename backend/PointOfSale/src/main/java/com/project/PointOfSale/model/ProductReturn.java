@@ -1,5 +1,6 @@
 package com.project.PointOfSale.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +26,6 @@ public class ProductReturn {
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    private Sale order_id;
+    @JsonIgnoreProperties("returnId")
+    private Sale orderId;
 }

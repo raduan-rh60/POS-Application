@@ -18,4 +18,9 @@ public interface SaleRepo extends JpaRepository<Sale, Long> {
     @Query("SELECT s FROM Sale s WHERE s.orderType = :orderType")
     List<Sale> findAllByOrderType(@Param("orderType") OrderType orderType);
 
+    @Query("SELECT YEAR(s.saleDate) AS year, MONTH(s.saleDate) AS month, SUM(s.totalAmount) AS totalAmount " +
+            "FROM Sale s " +
+            "GROUP BY YEAR(s.saleDate), MONTH(s.saleDate)")
+    List<Object[]> getSalesGroupedByYearAndMonth();
+
 }

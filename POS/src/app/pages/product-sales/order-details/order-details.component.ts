@@ -3,10 +3,12 @@ import { MaterialModule } from 'src/app/material.module';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {OrderService} from "../generate-sale/service/order.service";
 import {DatePipe} from "@angular/common";
+import {ReturnData} from "../return-form/return-form.component";
 export interface OrderItem {
   id: number;
   name: string;
   quantity: number;
+  returnQuantity: number;
   price: number;
   subtotal: number;
   subtotalPurchasePrice:number;
@@ -19,6 +21,7 @@ export interface OrderData {
   customerPhone: string;
   discount:number;
   id: number;
+  returnId: ReturnData;
   note: string;
   orderItems: OrderItem[]; // Array of OrderItem objects
   orderStatus: string;

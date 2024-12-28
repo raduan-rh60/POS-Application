@@ -66,4 +66,7 @@ export class OnlineSalesComponent implements OnInit {
   returnProduct(id:number){
     this.router.navigate(['sales/return-form/', id]);
   }
+  navigateToInvoice(id:string){
+    this.router.navigate(['sales/order-details/', id]);
+  }
 }

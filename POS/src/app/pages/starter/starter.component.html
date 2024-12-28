@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-6 col-md-6 ">
+  <div class="col-lg-3 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-primary">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -20,7 +20,7 @@
       </mat-card-content>
     </mat-card>
 </div>
-  <div class="col-lg-6 col-md-6 ">
+  <div class="col-lg-3 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-warning">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -41,7 +41,7 @@
       </mat-card-content>
     </mat-card>
 </div>
-  <div class="col-lg-6 col-md-6 ">
+  <div class="col-lg-3 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-error">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -62,7 +62,7 @@
       </mat-card-content>
     </mat-card>
 </div>
-  <div class="col-lg-6 col-md-6 ">
+  <div class="col-lg-3 col-md-6 ">
     <mat-card class="cardWithShadow bg-light-accent">
       <mat-card-content>
         <div class="hstack align-items-center">
@@ -71,12 +71,12 @@
           >
             <i class="iconify f-s-40 text-primary" data-icon="solar:wallet-money-line-duotone"></i>
           </div>
-          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Profit</mat-card-title>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Return Amount</mat-card-title>
         </div>
 
         <div class="row ">
           <div class="col-12 f-a-e">
-            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ (totalSold - totalPurchase) | number: '1.2-2' }} {{ currency }}</h5>
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ (totalReturnAmount) | number: '1.2-2' }} {{ currency }}</h5>
           </div>
 
         </div>
@@ -90,11 +90,26 @@
 <div class="col-lg-4">
   <div class="row">
     <div class="col-12">
-      <app-new-customers></app-new-customers>
+      <mat-card class="cardWithShadow">
+        <mat-card-content>
+          <div class="hstack align-items-center">
+            <div
+              class="rounded icon-48 bg-light-error d-flex align-items-center flex-shrink-0 justify-content-center"
+            >
+              <i class="iconify f-s-24 text-error" data-icon="solar:box-linear"></i>
+            </div>
+            <mat-card-title class="f-s-16 f-w-500 m-b-0">total Profit </mat-card-title>
+          </div>
+          <div class="row ">
+            <div class="col-12 f-a-e">
+              <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ (totalSold - totalPurchase-totalReturnAmount) | number: '1.2-2' }} {{ currency }}</h5>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
     </div>
-    <div class="col-12">
-      <app-total-income></app-total-income>
-    </div>
+
   </div>
 </div>
 <div class="col-lg-8">

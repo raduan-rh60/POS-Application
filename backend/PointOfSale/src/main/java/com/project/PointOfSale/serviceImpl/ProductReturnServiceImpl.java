@@ -88,7 +88,7 @@ public class ProductReturnServiceImpl implements ProductReturnService {
         Optional<Sale> invoiceOpt = saleRepo.findById(productReturnDTO.getOrderID());
         if (invoiceOpt.isPresent()) {
             Sale invoice = invoiceOpt.get();
-            productReturn.setOrder_id(invoice);
+            productReturn.setOrderId(invoice);
         } else {
             // Handle the case where Sale (Invoice) is not found
             throw new EntityNotFoundException("Sale with ID " + productReturnDTO.getOrderID() + " not found");
@@ -98,7 +98,6 @@ public class ProductReturnServiceImpl implements ProductReturnService {
         // Save the ProductReturn entity to the database
         return productReturnRepo.save(productReturn); // Persist the ProductReturn entity
     }
-
 
 
 }

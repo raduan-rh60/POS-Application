@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -132,5 +130,34 @@ public class SaleServiceImpl implements SaleService {
 
         // Save the updated sale back to the repository
         return saleRepo.save(existingSale);
+    }
+
+
+
+    public List<Map<String, Object>> getSalesGroupedByYearAndMonth() {
+        List<Object[]> results = saleRepo.getSalesGroupedByYearAndMonth();
+        Map<Integer, Map<Integer, Double>> salesGroupedByYearAndMonth = new LinkedHashMap<>();
+
+        for (Object[] result : results) {
+            Integer year = (Integer) result[0];
+            Integer month = (Integer) result[1];
+            Double totalAmount = (Double) result[2];
+
+            // Ensure the year exists in the map
+            salesGroupedByYearAndMonth
+                    .computeIfAbsent(year, k -> new LinkedHashMap<>())
+                    .put(month, totalAmount);
+        }
+
+        // Now map it into the desired response format
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (Map.Entry<Integer, Map<Integer, Double>> entry : salesGroupedByYearAndMonth.entrySet()) {
+            Map<String, Object> yearData = new HashMap<>();
+            yearData.put("year", entry.getKey());
+            yearData.put("monthData", entry.getValue());
+            response.add(yearData);
+        }
+
+        return response;
     }
 }

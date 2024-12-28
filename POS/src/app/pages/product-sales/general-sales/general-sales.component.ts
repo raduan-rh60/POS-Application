@@ -75,4 +75,7 @@ export class GeneralSalesComponent implements OnInit {
     this.router.navigate(['sales/return-form/', id]);
   }
 
+  navigateToInvoice(id:string){
+    this.router.navigate(['sales/order-details/', id]);
+  }
 }

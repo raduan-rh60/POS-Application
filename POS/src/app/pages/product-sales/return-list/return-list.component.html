@@ -1,64 +1,99 @@
+<div class="row">
+  <div class="col-md-6">
+    <mat-card class="cardWithShadow bg-light-primary">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-success" data-icon="solar:box-line-duotone"></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Return Products</mat-card-title>
+        </div>
+
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ grandTotalProducts }} PC</h5>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <mat-card class="cardWithShadow bg-light-accent">
+      <mat-card-content>
+        <div class="hstack align-items-center">
+          <div
+            class="rounded icon-40  d-flex align-items-center flex-shrink-0 justify-content-center"
+          >
+            <i class="iconify f-s-40 text-dark-emphasis" data-icon="solar:hand-money-linear" ></i>
+          </div>
+          <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Return Amount</mat-card-title>
+        </div>
+
+        <div class="row ">
+          <div class="col-12 f-a-e">
+            <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ grandTotalReturn }} TK</h5>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
 <mat-card class="cardWithShadow">
     <mat-card-content>
-      
-      <div class="row justify-content-end mb-5">
-        <div class="col-md-6">
-            <mat-card-title>Product Sale List </mat-card-title>
+
+      <div class="row justify-content-end mb-3">
+        <div class="text-center">
+            <mat-card-title>Product Return List </mat-card-title>
         </div>
-        <div class="col-md-6 text-end">
-            <button mat-flat-button color="primary" > Export CSV </button>
-        </div>
-        
+
       </div>
-  
+
       <div class="table-responsive">
         <p-table [value]="dataSource" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '70rem' }">
           <ng-template pTemplate="header">
               <tr>
-                <th>id</th>
-                <th>Product_id</th>
-                <th>Sale_id</th>
-                <th>sell amount</th>
-                <th>return amount</th>
-                <th>Note</th>
-                <th>Action</th>
-                  
+                <th>Invoice Id</th>
+                <th>Customer Name</th>
+                <th>Return Products</th>
+                <th pSortableColumn="date">Return Date  <p-sortIcon field="date"/></th>
+                <th>Return Amount</th>
+
               </tr>
           </ng-template>
           <ng-template pTemplate="body" let-dataSource>
               <tr>
+                  <td><a (click)="navigateToInvoice(dataSource.orderId.id)" class="text-info bi-cursor" style="cursor: pointer;" >
+                    Invoice-{{ dataSource.orderId.id }}
+                  </a></td>
+                  <td>{{ dataSource.orderId.customerName }}</td>
                   <td>
-                    <img
-                [src]= dataSource.imagePath 
-                alt="users"
-                width="48"
-                class="rounded"
-              /></td>
-                  <td>{{ dataSource.productId }}</td>
-                  <td>{{ dataSource.pName }}</td>
-                  <td>{{ dataSource.sQuantity }}</td>
-                  <td>{{ dataSource.productPrice  }}</td>
-                  <td>{{ dataSource.paidPrice }}</td>
-                  <td>{{ dataSource.duePrice }}</td>
-                  
-                  <td><span
-                    ><span class="f-w-600 f-s-14"><button mat-icon-button color="primary">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                      <button mat-icon-button color="warn">
-                        <i class="bi bi-trash"></i>
-                      </button></span
-                    ></span
-                  ></td>
+                    <ul>
+                      @for (items of dataSource.orderId.orderItems; track $index) {
+                        @if (items.returnQuantity>0) {
+                          <li>
+                            {{ items.name }} : {{items.returnQuantity}} pc
+                          </li>
+                        }
+                      }
+                    </ul>
+
+                   </td>
+                  <td>{{ dataSource.date }}</td>
+                  <td>{{ dataSource.returnAmount }} TK</td>
+
               </tr>
           </ng-template>
         </p-table>
       </div>
     </mat-card-content>
   </mat-card>
-  
-  
 
 
 
-  
+
+

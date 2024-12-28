@@ -1,5 +1,6 @@
 package com.project.PointOfSale.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.PointOfSale.enums.OrderStatus;
 import com.project.PointOfSale.enums.OrderType;
 import jakarta.persistence.*;
@@ -41,6 +42,11 @@ public class Sale {
     @OneToMany( cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<Cart> orderItems;
+
+    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL)
+    @JoinColumn(name = "return_id")
+    @JsonIgnoreProperties("orderId")
+    private ProductReturn returnId;
 
 
 }

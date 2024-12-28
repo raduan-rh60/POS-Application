@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/sale")
@@ -45,5 +46,10 @@ public class SaleController {
     public Sale editSale(@PathVariable long id,@RequestBody SaleDTO saleDTO){
 
         return saleService.updateSale(id,saleDTO);
+    }
+
+    @GetMapping("year-month")
+    List<Map<String, Object>> groupByYearAndMonth(){
+        return saleService.getSalesGroupedByYearAndMonth();
     }
 }

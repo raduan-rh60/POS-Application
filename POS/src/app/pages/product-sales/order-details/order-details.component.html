@@ -97,6 +97,42 @@
 
         </tbody>
       </table>
+
+      @if (orderDetails.returnId != null) {
+        <div class="mt-3">
+          <h4> Return Products</h4>
+          <table class="table table-bordered text-end">
+
+            <thead>
+            <th class="w-50 text-start">Product</th>
+            <th >Return Quantity</th>
+            <th >Price</th>
+            <th >Net Amount</th>
+            </thead>
+            <tbody>
+              @for (item of orderDetails.orderItems; track $index) {
+               @if(item.returnQuantity>0){
+                 <tr>
+                   <td class="w-50 text-start">{{item.name}}</td>
+                   <td>{{item.returnQuantity}}</td>
+                   <td>{{item.price}}</td>
+                   <td>{{item.returnQuantity * item.price}}</td>
+                 </tr>
+               }
+              }
+
+            <tr>
+              <td>Total Return (Considering Discount):</td>
+              <td colspan="3">{{orderDetails.returnId.returnAmount}}</td>
+            </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+
+
+      }
       <div class="row justify-content-evenly">
         <div class="col-4 text-center ">
           <button mat-raised-button color="accent" class="w-50" (click)="navigateToPage(orderDetails.orderType)">Order List</button>
