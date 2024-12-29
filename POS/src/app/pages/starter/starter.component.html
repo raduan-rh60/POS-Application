@@ -102,7 +102,12 @@
           </div>
           <div class="row ">
             <div class="col-12 f-a-e">
-              <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10">{{ (totalSold - totalPurchase-totalReturnAmount) | number: '1.2-2' }} {{ currency }}</h5>
+              @if((totalSold - totalPurchase-totalReturnAmount)>0){
+                <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10 text-success" >{{ (totalSold - totalPurchase-totalReturnAmount) | number: '1.2-2' }} {{ currency }}</h5>
+              }@else{
+                <h5 class=" f-s-22 f-w-500 m-b-4 m-t-10 text-error" >{{ (totalSold-totalPurchase-totalReturnAmount ) | number: '1.2-2' }} {{ currency }}</h5>
+              }
+              
             </div>
           </div>
 
@@ -112,52 +117,7 @@
 
   </div>
 </div>
-<div class="col-lg-8">
-  <app-revenue-product></app-revenue-product>
-</div>
-<div class="col-lg-4">
-  <mat-card class="cardWithShadow">
-    <mat-card-content>
-      <div class="hstack align-items-center">
-        <div
-          class="rounded icon-48 bg-light-primary d-flex align-items-center flex-shrink-0 justify-content-center"
-        >
-          <i class="iconify f-s-24 text-dark" data-icon="solar:shop-outline"></i>
-        </div>
-        <mat-card-title class="f-s-16 f-w-500 m-b-0">Todays Sale By Shop</mat-card-title>
-      </div>
-     <div class="table-responsive">
-      <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
-        <!-- Item Column -->
-        <ng-container matColumnDef="shopName">
-          <th mat-header-cell *matHeaderCellDef> Shop Name </th>
-          <td mat-cell *matCellDef="let transaction"> {{transaction.shopName}} </td>
-        </ng-container>
 
-        <!-- Cost Column -->
-        <ng-container matColumnDef="sales">
-          <th mat-header-cell *matHeaderCellDef class="text-end"> Sales </th>
-          <td mat-cell *matCellDef="let transaction" class="text-end"> {{transaction.sales}} </td>
-
-        </ng-container>
-
-        <!-- <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> Delete </th>
-
-          <td mat-cell *matCellDef="let transaction">  <button mat-icon-button color="warn">
-            <mat-icon>delete</mat-icon>
-          </button> </td>
-
-        </ng-container> -->
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-     </div>
-    </mat-card-content>
-  </mat-card>
-</div>
 
 </div>
 

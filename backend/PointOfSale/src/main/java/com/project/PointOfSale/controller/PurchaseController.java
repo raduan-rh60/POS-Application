@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -56,6 +57,11 @@ public class PurchaseController {
     public ResponseEntity<Void> deletePurchase(@PathVariable long id) {
         purchaseService.deletePurchase(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("year-month")
+    public List<Map<String, Object>> findGroupByYearAndMonth(){
+        return purchaseService.getPurchasesGroupedByYearAndMonth();
     }
 }
 

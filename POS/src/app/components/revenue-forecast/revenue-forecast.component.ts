@@ -4,6 +4,7 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { ApexChart, ChartComponent, ApexDataLabels, ApexLegend, ApexStroke, ApexTooltip, ApexAxisChartSeries, ApexPlotOptions, NgApexchartsModule, ApexFill } from 'ng-apexcharts';
 import { OrderService } from "../../pages/product-sales/generate-sale/service/order.service";
 import { FormsModule } from "@angular/forms";
+import { PurchaseService } from 'src/app/pages/product-sales/purchase-list/service/purchase.service';
 
 export interface revenueForecastChart {
   series: ApexAxisChartSeries;
@@ -32,11 +33,13 @@ export class AppRevenueForecastComponent {
   public revenueForecastChart!: Partial<revenueForecastChart> | any;
   year: number = new Date().getFullYear(); // Default to the current year
   earningData: any = Array(12).fill(0); // Initialize with zeros (12 months)
+  expensesData: any = Array(12).fill(0); // Initialize with zeros (12 months)
   years: number[] = [2024, 2023, 2022, 2021, 2020]; // List of years for the dropdown
   maxEarning:number;
+  maxExpense:number;
 
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,private purchaseService:PurchaseService) {
 
     this.getData();
     console.log("Earning Data Value"+this.maxEarning)
@@ -162,40 +165,45 @@ export class AppRevenueForecastComponent {
   }
 
   getData() {
+    // Fetch sales data
     this.orderService.getSalesByYearAndMonth().subscribe((res: any[]) => {
-      console.log('API Response:', res);  // Log the API response for inspection
+      this.earningData = Array(12).fill(0); // Reset to zero for new data
 
-      // Initialize the earningData array with zeros (12 months)
-      this.earningData = Array(12).fill(0);
-
-      // Go through the response and update earningData for the selected year
       res.forEach((yearData) => {
-        console.log('Processing year data:', yearData); // Log each yearData entry
-        const year = yearData.year;  // Extract the year
-        const monthData = yearData.monthData;  // Extract the monthData object
-
-        if (year === this.year) {
-          // Process each month in the monthData object
+        if (yearData.year === this.year) {
+          const monthData = yearData.monthData;
           for (const month in monthData) {
-            const monthIndex = parseInt(month) - 1;  // Convert month to 0-based index
-            const totalAmount = monthData[month];  // Get the total amount for the month
-
-            // Check if the monthIndex is valid
-            if (monthIndex >= 0 && monthIndex < 12) {
-              this.earningData[monthIndex] = totalAmount; // Set the total amount for the specific month
-            }
+            const monthIndex = parseInt(month) - 1;
+            this.earningData[monthIndex] = monthData[month];
           }
         }
       });
-      this.maxEarning = this.earningData.length > 0
-        ? Math.max(...this.earningData.filter((value: number) => value != null && value !== 0))
-        : 10000;
-      console.log('Updated Earning max:',  this.maxEarning ); // Log the populated earningData
-      this.updateChart(); // Update the chart with the new data
+    });
+
+    this.purchaseService.getYearMonthData().subscribe((res: any[]) => {
+      this.expensesData = Array(12).fill(0); // Reset to zero for new data
+  
+      res.forEach((yearData) => {
+        if (yearData.year === this.year) {
+          const monthData = yearData.monthData;
+          for (const month in monthData) {
+            const monthIndex = parseInt(month) - 1;
+            this.expensesData[monthIndex] = -monthData[month]; // Set expense as negative
+          }
+        }
+      });
+
+      this.maxEarning = Math.max(
+        Math.max(...this.earningData.filter((v: number) => v != null && v !== 0))
+      );
+      this.maxExpense = Math.min(
+        Math.max(...this.expensesData.filter((v: number) => v != null && v !== 0))
+      );
+
+      this.updateChart(); // Update chart after fetching both sales and purchase data
     });
   }
 
-  // Update chart data and render
   updateChart() {
     this.revenueForecastChart = {
       ...this.revenueForecastChart,
@@ -206,12 +214,12 @@ export class AppRevenueForecastComponent {
         },
         {
           name: 'Expenses this month',
-          data: [-70, -20, -650, -500, 0, 0, 0, 0, 0, 0, 0, 0],
+          data: this.expensesData,
         },
       ],
       yaxis: {
-        min: -8000,
-        max: this.maxEarning +5000, // Set the maximum value here
+        min: this.maxExpense - 5000,
+        max: this.maxEarning + 5000, // Adjusted for the new maximum
         tickAmount: 4,
       },
     };

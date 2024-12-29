@@ -43,4 +43,9 @@ export class PurchaseService {
   deletePurchase(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  // getting year and month groupby Data
+  getYearMonthData():Observable<any[]>{
+    return this.http.get<any>(`${this.apiUrl}/year-month`)
+  }
 }
