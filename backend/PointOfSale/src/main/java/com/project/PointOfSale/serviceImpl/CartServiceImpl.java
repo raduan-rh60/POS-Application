@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService {
     public Cart updateCart(Cart cart) {
         Cart oldCart = cartRepo.findById(cart.getId()).get();
         oldCart.setQuantity(cart.getQuantity());
-        oldCart.setSubtotal(cart.getSubtotal());
+        oldCart.setSubtotal(oldCart.getPrice()*cart.getQuantity());
         if(cart.getReturnQuantity()>0){
             oldCart.setReturnQuantity(cart.getReturnQuantity());
         }
