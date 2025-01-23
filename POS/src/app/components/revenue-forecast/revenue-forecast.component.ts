@@ -34,13 +34,13 @@ export class AppRevenueForecastComponent {
   year: number = new Date().getFullYear(); // Default to the current year
   earningData: any = Array(12).fill(0); // Initialize with zeros (12 months)
   expensesData: any = Array(12).fill(0); // Initialize with zeros (12 months)
-  years: number[] = [2024, 2023, 2022, 2021, 2020]; // List of years for the dropdown
+  years: number[] = []; // List of years for the dropdown
   maxEarning:number;
   maxExpense:number;
 
 
   constructor(private orderService: OrderService,private purchaseService:PurchaseService) {
-
+    this.updateYears();
     this.getData();
     console.log("Earning Data Value"+this.maxEarning)
     this.revenueForecastChart = {
@@ -48,11 +48,11 @@ export class AppRevenueForecastComponent {
         {
           name: 'Earning this month',
           // data: [this.earningData],
-          data: [5000,5,5900,58,0,0,0,0,0,0,0,0],
+          data: [0,0,0,0,0,0,0,0,0,0,0,0],
         },
         {
           name: 'Expenses this month',
-          data: [-7000, -20000, -65000, -50000, 0, 0, 0, 0, 0, 0, 0, 0],
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
       ],
 
@@ -144,6 +144,11 @@ export class AppRevenueForecastComponent {
 
   }
 
+  updateYears(): void {
+    const currentYear = new Date().getFullYear();
+    this.years = Array.from({ length: 4 }, (_, i) => currentYear - i);
+  }
+
   // Method to map the month names to indices
   getMonthIndex(month: string): number {
     const monthMap: { [key: string]: number } = {
@@ -168,18 +173,20 @@ export class AppRevenueForecastComponent {
     // Fetch sales data
     this.orderService.getSalesByYearAndMonth().subscribe((res: any[]) => {
       this.earningData = Array(12).fill(0); // Reset to zero for new data
-
+  
       res.forEach((yearData) => {
         if (yearData.year === this.year) {
           const monthData = yearData.monthData;
           for (const month in monthData) {
-            const monthIndex = parseInt(month) - 1;
+            const monthIndex = parseInt(month) - 1; // Convert month to array index
             this.earningData[monthIndex] = monthData[month];
           }
         }
       });
+      this.calculateMaxValues(); // Ensure calculations happen after updating data
     });
-
+  
+    // Fetch purchase data
     this.purchaseService.getYearMonthData().subscribe((res: any[]) => {
       this.expensesData = Array(12).fill(0); // Reset to zero for new data
   
@@ -192,17 +199,20 @@ export class AppRevenueForecastComponent {
           }
         }
       });
-
-      this.maxEarning = Math.max(
-        Math.max(...this.earningData.filter((v: number) => v != null && v !== 0))
-      );
-      this.maxExpense = Math.min(
-        Math.max(...this.expensesData.filter((v: number) => v != null && v !== 0))
-      );
-
-      this.updateChart(); // Update chart after fetching both sales and purchase data
+      this.calculateMaxValues(); // Ensure calculations happen after updating data
     });
   }
+  
+  // Helper method to calculate max values and update chart
+  calculateMaxValues() {
+    // Calculate max earning and expense
+    this.maxEarning = Math.max(...this.earningData.filter((v: number) => v !== 0));
+    this.maxExpense = Math.min(...this.expensesData.filter((v: number) => v !== 0));
+  
+    // Update chart
+    this.updateChart();
+  }
+  
 
   updateChart() {
     this.revenueForecastChart = {

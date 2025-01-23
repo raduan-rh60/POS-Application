@@ -99,7 +99,6 @@ export class PosComponent implements OnInit {
 
   // for order popup option.
   orderOption: OrderModel = {
-    id: 0,
     customerName: '',
     customerAddress: '',
     customerPhone: '',
@@ -302,58 +301,7 @@ export class PosComponent implements OnInit {
     this.orderOption.totalAmount = this.finalPrice;
   }
 
-  // order() {
-  //   // Step 1: Save the order
-  //   console.log(this.orderOption);
-  //   console.log(this.orderOption);
-  //   this.orderService.saveOrder(this.orderOption).subscribe((res) => {
-  //     console.log(res);
-  //     if (res != null) {
-  //       // Step 2: Loop through each product in the cart and update stock
-  //       this.cartService.getAllCart().subscribe((cartItems) => {
-  //         cartItems.forEach((item) => {
-  //           // For each item we will search each product
-  //           this.productService
-  //             .getProductById(item.productId)
-  //             .subscribe((product) => {
-  //               // For each cart item, calculate the new stock
-  //               const updatedStock = product.stock - item.quantity;
-  //               // Step 3: Update the stock for each product in the cart
-  //               if (updatedStock >= 0) {
-  //                 this.productService
-  //                   .updateStock(product.id, updatedStock)
-  //                   .subscribe(
-  //                     (stockRes) => {
-  //                       console.log(
-  //                         `Updated stock for product ${product.id}: ${updatedStock}`
-  //                       );
-  //                     },
-  //                     (error) => {
-  //                       console.error(
-  //                         `Error updating stock for product ${product.id}`,
-  //                         error
-  //                       );
-  //                     }
-  //                   );
-  //               } else {
-  //                 console.error(`Not enough stock for product ${product.id}`);
-  //                 // Optionally, you could handle the error here (e.g., show a message to the user)
-  //               }
-  //             });
-  //         });
-  //
-  //         // Step 4: Update the cart status to "ORDERED"
-  //         this.cartService.updateStatus('ORDERED').subscribe((updateRes) => {
-  //           // Step 5: Refresh the cart after status update
-  //           this.getAllCart();
-  //           this.paymentDialogue = false; // Close the payment dialog
-  //         });
-  //       });
-  //       this.orderOption = res;
-  //       this.router.navigate(['sales/order-details/', this.orderOption.id]);
-  //     }
-  //   });
-  // }
+  
 
   order(): void {
     console.log(this.orderOption);
