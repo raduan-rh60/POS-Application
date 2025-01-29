@@ -10,7 +10,7 @@ export interface DamageDTO {
   quantity: number;
   productPrice: number;
   damageAmount: number;
-  date: Date;  
+  date?: Date;  
 }
 
 @Injectable({

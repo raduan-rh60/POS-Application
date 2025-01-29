@@ -72,7 +72,7 @@ export class PurchaseListComponent {
       // Calculate the month grand total for current month
       const currentMonth = new Date().getMonth();
       this.monthGrandTotal = this.purchases
-        .filter((purchase) => new Date(purchase.date).getMonth() === currentMonth)
+        .filter((purchase) => new Date(purchase.date!).getMonth() === currentMonth)
         .reduce((acc, purchase) => acc + (purchase.sub_total || 0), 0);
     }
     );

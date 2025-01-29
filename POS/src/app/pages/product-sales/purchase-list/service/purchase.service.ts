@@ -8,7 +8,7 @@ export interface Purchase {
   quantity: number;
   rate: number;
   sub_total?: number;
-  date:Date;  // This is calculated on the backend, no need to send it in POST or PUT
+  date?:Date;  // This is calculated on the backend, no need to send it in POST or PUT
 }
 
 @Injectable({

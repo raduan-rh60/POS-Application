@@ -47,7 +47,7 @@ export class ProductDamageListComponent implements OnInit {
     quantity: 0,
     productPrice: 0,
     damageAmount: 0,
-    date: new Date()
+    date:new Date,
   };
 
   productDemo:Product[]=[];
@@ -125,7 +125,6 @@ export class ProductDamageListComponent implements OnInit {
       quantity: 0,
       productPrice: 0,
       damageAmount: 0,
-      date: new Date(),
     };
   }
    purchaseDialogueShow() {

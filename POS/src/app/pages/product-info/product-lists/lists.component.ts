@@ -91,8 +91,13 @@ export class AppProductListsComponent implements OnInit {
 
       // When the file is read as a data URL, store the Base64 string
       reader.onload = () => {
-        // The `result` contains the Base64 string with a prefix (e.g., "data:image/png;base64,")
-        this.product.image = reader.result as string;
+        const result = reader.result as string;
+
+      // Extract only the Base64-encoded bytes by removing the prefix
+      const base64String = result.split(',')[1];
+
+      // Store the Base64-encoded bytes without the prefix
+      this.product.image = base64String;
       };
 
       // Handle errors
@@ -111,6 +116,7 @@ export class AppProductListsComponent implements OnInit {
   public saveProduct(){
  return this.productService.saveProduct(this.product).subscribe(res=>{
   if(res!=null){
+    console.log(this.product);
     this.addSuccess=true;
     this.product={
       id:0,
@@ -122,6 +128,7 @@ export class AppProductListsComponent implements OnInit {
       category: 0,
       brand:  0
       }
+      
   }else{
     this.addError=false;
   }
