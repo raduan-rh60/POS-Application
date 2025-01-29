@@ -47,8 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(ProductDTO productDTO) {
-        String base64String = productDTO.getImage().split(",")[1];
-        byte[] imageBytes = Base64.getDecoder().decode(base64String);
+        byte[] imageBytes = Base64.getDecoder().decode(productDTO.getImage());
         Category category = categoryRepo.findById(productDTO.getCategory()).get();
         Brand brand = brandRepo.findById(productDTO.getBrand()).get();
 

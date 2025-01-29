@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class DamageServiceImpl {
         damage.setReason(damageDTO.getReason());
         damage.setQuantity(damageDTO.getQuantity());
         damage.setDamageAmount(damageDTO.getProductPrice()*damageDTO.getQuantity());
-        damage.setDate(damageDTO.getDate());
+        damage.setDate(LocalDate.now());
 
         // Link the damage with the product
         damage.setProduct(product);

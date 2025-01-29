@@ -5,6 +5,7 @@ import com.project.PointOfSale.repo.PurchaseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -13,7 +14,8 @@ public class PurchaseServiceImpl {
     private PurchaseRepo purchaseRepository;
 
     public Purchase savePurchase(Purchase purchase) {
-        purchase.setSub_total(purchase.getQuantity() * purchase.getRate()); // Calculate sub_total
+        purchase.setSub_total(purchase.getQuantity() * purchase.getRate());// Calculate sub_total
+        purchase.setDate(LocalDate.now());
         return purchaseRepository.save(purchase);
     }
 

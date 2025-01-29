@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Damage {
     private String reason;
     private int quantity;
     private double damageAmount;
-    private Date date;
+    private LocalDate date;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
